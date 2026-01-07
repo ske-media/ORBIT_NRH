@@ -8,7 +8,7 @@
       content="Golden Sweet Creations — pâtisseries sans gluten, IG bas, sans lactose et vegan. Une histoire de résilience, de goût et d’excellence."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="theme-color" content="#3a0716" />
+    <meta name="theme-color" content="#1c030a" />
     <meta name="color-scheme" content="dark light" />
     <title>Golden Sweet Creations — Pâtisserie saine, sans compromis</title>
 
@@ -44,9 +44,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="styles.css" />
 
     <script type="application/ld+json">
@@ -93,35 +94,38 @@
 
     <header class="site-header" role="banner">
       <div class="frame">
-        <div class="topbar">
-          <p class="topbar__note">
-            <span class="pill">Nouveauté</span>
-            Boîtes dégustation • Sans gluten • IG bas • Sans lactose • Vegan
-          </p>
+        <div class="topbar" aria-label="Infos rapides">
+          <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+              <span>Sans gluten</span><span class="dot">•</span><span>IG bas</span
+              ><span class="dot">•</span><span>Sans lactose</span><span class="dot">•</span
+              ><span>Vegan</span><span class="dot">•</span><span>100% naturel</span
+              ><span class="dot">•</span><span>Boîtes dégustation</span><span class="dot">•</span
+              ><span>Sans gluten</span><span class="dot">•</span><span>IG bas</span
+              ><span class="dot">•</span><span>Sans lactose</span><span class="dot">•</span
+              ><span>Vegan</span><span class="dot">•</span><span>100% naturel</span
+              ><span class="dot">•</span><span>Boîtes dégustation</span>
+            </div>
+          </div>
           <a class="topbar__cta" href="#newsletter">Recevoir les nouveautés</a>
         </div>
 
         <div class="nav">
           <a class="brand" href="#accueil" aria-label="Retour à l’accueil">
-            <span class="brand__small">Golden Sweet</span>
-            <span class="brand__big">Creations</span>
+            <span class="brand__kicker">Golden Sweet</span>
+            <span class="brand__name">Creations</span>
           </a>
 
-          <button
-            class="nav__toggle"
-            type="button"
-            aria-expanded="false"
-            aria-controls="menu"
-          >
+          <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu">
             Menu
           </button>
 
           <nav class="nav__links" id="menu" aria-label="Navigation principale">
             <a href="#histoire">Notre histoire</a>
-            <a href="#patisseries">Nos pâtisseries</a>
+            <a href="#patisseries">Créations</a>
             <a href="#engagement">Engagement</a>
-            <a href="#temoignages">Témoignages</a>
-            <a class="btn btn--small" href="#commande">Commander</a>
+            <a href="#temoignages">Avis</a>
+            <a class="btn btn--sm" href="#commande">Commander</a>
           </nav>
         </div>
       </div>
@@ -130,122 +134,155 @@
     <main id="contenu" class="site-main">
       <!-- HERO -->
       <section id="accueil" class="hero" aria-label="Bannière d’accueil">
-        <div class="frame hero__grid">
-          <div class="hero__copy">
-            <p class="eyebrow">Pâtisserie artisanale • Bien-être • Excellence</p>
-            <h1 class="hero__title">
-              Des douceurs saines,<br />
-              <span class="accent">sans compromis</span> sur le goût.
-            </h1>
-            <p class="hero__subtitle">
-              Le plaisir, pour tous, sans restriction.
-              <span class="muted"
-                >Offrez à vos papilles ce qu’il y a de meilleur, adapté à tous les
-                régimes alimentaires.</span
-              >
-            </p>
+        <div class="frame">
+          <div class="hero__shell">
+            <div class="hero__copy">
+              <p class="kicker">Pâtisserie artisanale • Healthy • Haute exigence</p>
+              <h1 class="h1">
+                Des douceurs <span class="pop">saines</span>,<br />
+                <span class="serif">sans compromis</span> sur le goût.
+              </h1>
+              <p class="lead">
+                Le plaisir, pour tous, sans restriction.
+                <span class="muted"
+                  >Sans gluten, indice glycémique bas, sans lactose et vegan — le meilleur, adapté à
+                  vos besoins.</span
+                >
+              </p>
 
-            <div class="hero__actions">
-              <a class="btn" href="#histoire">Découvrez notre histoire</a>
-              <a class="btn btn--ghost" href="#patisseries">Voir les créations</a>
+              <div class="hero__actions">
+                <a class="btn" href="#histoire">Découvrez notre histoire</a>
+                <a class="btn btn--ghost" href="#patisseries">Voir les créations</a>
+              </div>
+
+              <div class="chips" aria-label="Labels">
+                <span class="chip">Sans gluten</span>
+                <span class="chip">IG bas</span>
+                <span class="chip">Sans lactose</span>
+                <span class="chip">Vegan</span>
+                <span class="chip chip--pop">100% naturel</span>
+              </div>
             </div>
 
-            <ul class="hero__badges" aria-label="Engagements clés">
-              <li>
-                <span class="badge-icon" aria-hidden="true">✓</span> 100% naturel
-              </li>
-              <li>
-                <span class="badge-icon" aria-hidden="true">✓</span> Sans gluten
-              </li>
-              <li>
-                <span class="badge-icon" aria-hidden="true">✓</span> IG bas
-              </li>
-              <li>
-                <span class="badge-icon" aria-hidden="true">✓</span> Sans lactose
-              </li>
-              <li>
-                <span class="badge-icon" aria-hidden="true">✓</span> Vegan
-              </li>
-            </ul>
-          </div>
-
-          <div class="hero__media" aria-label="Visuels de pâtisserie et du chef">
-            <div class="collage">
-              <figure class="collage__main">
+            <div class="hero__bento" aria-label="Visuels bento">
+              <figure class="tile tile--hero">
                 <img
-                  src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=1400&q=80"
+                  src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=1600&q=80"
                   alt="Chef pâtissier en action dans une cuisine lumineuse"
                   loading="eager"
                 />
-                <figcaption class="sticker sticker--quote">
-                  “Le goût d’abord. La santé aussi.”
+                <figcaption class="badge badge--glass">
+                  <span class="badge__label">Signature</span>
+                  <span class="badge__value">Goût d’abord.</span>
                 </figcaption>
               </figure>
 
-              <figure class="collage__tile collage__tile--1">
+              <figure class="tile tile--pastry">
                 <img
-                  src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=80"
+                  src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1400&q=80"
                   alt="Viennoiseries artisanales dorées"
                   loading="lazy"
                 />
-                <figcaption class="sticker sticker--seal">
-                  <span class="sticker__kicker">Sans</span>
-                  <span class="sticker__big">Compromis</span>
+                <figcaption class="badge badge--gold">
+                  <span class="badge__label">Best‑seller</span>
+                  <span class="badge__value">Brioche IG bas</span>
                 </figcaption>
               </figure>
 
-              <figure class="collage__tile collage__tile--2">
+              <figure class="tile tile--ingredients">
                 <img
-                  src="https://images.unsplash.com/photo-1514511547114-0159909348ff?auto=format&fit=crop&w=900&q=80"
+                  src="https://images.unsplash.com/photo-1514511547114-0159909348ff?auto=format&fit=crop&w=1400&q=80"
                   alt="Ingrédients naturels : fruits, céréales et graines"
                   loading="lazy"
                 />
-                <figcaption class="sticker sticker--tag">Ingrédients naturels</figcaption>
+                <figcaption class="badge badge--pop">
+                  <span class="badge__label">Transparence</span>
+                  <span class="badge__value">Ingrédients vrais</span>
+                </figcaption>
               </figure>
+
+              <div class="tile tile--note" aria-label="Promesse">
+                <p class="tile__quote">“Le luxe, c’est la précision. Le pop, c’est l’audace.”</p>
+                <p class="tile__sub">Des textures nettes, des arômes francs, une sensation légère.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- HISTOIRE -->
-      <section id="histoire" class="section story">
-        <div class="frame section__grid">
-          <div class="section__copy">
-            <h2 class="section__title">
-              D’un chef pâtissier de renommée mondiale à une nouvelle vision de la pâtisserie
+      <section id="histoire" class="section section--cream">
+        <div class="frame">
+          <header class="section__head">
+            <p class="kicker">Storytelling</p>
+            <h2 class="h2">
+              D’un chef pâtissier de renommée mondiale à une <span class="pop">nouvelle</span> vision
+              de la pâtisserie
             </h2>
-            <div class="prose">
-              <p>
-                “Dans les cuisines des plus grands hôtels et restaurants du monde, un chef
-                pâtissier émérite, reconnu pour son savoir-faire et sa créativité, voyait chaque
-                jour des milliers de sourires en offrant des délices sucrées. Mais un jour, tout a
-                changé. Un diagnostic de diabète a bouleversé sa vie. Plutôt que de se laisser
-                abattre, ce chef a vu cette épreuve comme une chance de réinventer son art.
-              </p>
-              <p>
-                Il a plongé dans un nouvel univers : celui des pâtisseries saines, sans gluten, à
-                faible indice glycémique, sans lactose et adaptées aux besoins de tous, sans exclure
-                personne. Son rêve : offrir à chacun la possibilité de savourer des douceurs sans
-                mettre en danger leur santé. C’est ainsi qu’est née
-                <strong>Golden Sweet Creations</strong>, un espace où la passion de la pâtisserie rencontre
-                l’excellence de la nutrition, sans compromis sur le goût.”
-              </p>
-            </div>
-            <div class="section__actions">
-              <a class="btn" href="#patisseries">Explorez nos créations</a>
-            </div>
-          </div>
+          </header>
 
-          <div class="section__media">
-            <div class="media-card">
-              <img
-                src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=1400&q=80"
-                alt="Dressage délicat d’une pâtisserie en cuisine"
-                loading="lazy"
-              />
-              <div class="media-card__meta">
-                <p class="media-card__title">Une nouvelle mission</p>
-                <p class="media-card__subtitle">Rendre la pâtisserie accessible à tous.</p>
+          <div class="grid grid--story">
+            <div class="card card--story">
+              <div class="prose">
+                <p>
+                  “Dans les cuisines des plus grands hôtels et restaurants du monde, un chef
+                  pâtissier émérite, reconnu pour son savoir-faire et sa créativité, voyait chaque
+                  jour des milliers de sourires en offrant des délices sucrées. Mais un jour, tout a
+                  changé. Un diagnostic de diabète a bouleversé sa vie. Plutôt que de se laisser
+                  abattre, ce chef a vu cette épreuve comme une chance de réinventer son art.
+                </p>
+                <p>
+                  Il a plongé dans un nouvel univers : celui des pâtisseries saines, sans gluten, à
+                  faible indice glycémique, sans lactose et adaptées aux besoins de tous, sans exclure
+                  personne. Son rêve : offrir à chacun la possibilité de savourer des douceurs sans
+                  mettre en danger leur santé. C’est ainsi qu’est née
+                  <strong>Golden Sweet Creations</strong>, un espace où la passion de la pâtisserie rencontre
+                  l’excellence de la nutrition, sans compromis sur le goût.”
+                </p>
+              </div>
+
+              <div class="card__actions">
+                <a class="btn" href="#patisseries">Explorez nos créations</a>
+              </div>
+            </div>
+
+            <div class="stack">
+              <figure class="card card--media">
+                <img
+                  src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=1600&q=80"
+                  alt="Dressage délicat d’une pâtisserie en cuisine"
+                  loading="lazy"
+                />
+                <figcaption class="card__caption">
+                  <span class="tag tag--gold">Nouvelle mission</span>
+                  <span>Rendre la pâtisserie accessible à tous.</span>
+                </figcaption>
+              </figure>
+
+              <div class="card card--timeline" aria-label="Étapes clés">
+                <div class="timeline">
+                  <div class="timeline__item">
+                    <span class="timeline__dot" aria-hidden="true"></span>
+                    <div>
+                      <p class="timeline__title">Palaces & grandes tables</p>
+                      <p class="timeline__text">Exigence, précision, créativité.</p>
+                    </div>
+                  </div>
+                  <div class="timeline__item">
+                    <span class="timeline__dot" aria-hidden="true"></span>
+                    <div>
+                      <p class="timeline__title">Le déclic</p>
+                      <p class="timeline__text">Diabète — réinventer, pas renoncer.</p>
+                    </div>
+                  </div>
+                  <div class="timeline__item">
+                    <span class="timeline__dot" aria-hidden="true"></span>
+                    <div>
+                      <p class="timeline__title">La nouvelle pâtisserie</p>
+                      <p class="timeline__text">Inclusive, saine, intensément gourmande.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -253,112 +290,98 @@
       </section>
 
       <!-- PRODUITS -->
-      <section id="patisseries" class="section products" aria-label="Nos pâtisseries">
+      <section id="patisseries" class="section" aria-label="Nos pâtisseries">
         <div class="frame">
-          <header class="section__header">
-            <h2 class="section__title">Des créations gourmandes pour tous les goûts</h2>
-            <p class="section__lede">
+          <header class="section__head section__head--split">
+            <div>
+              <p class="kicker">Créations</p>
+              <h2 class="h2">Des créations gourmandes pour tous les goûts</h2>
+            </div>
+            <p class="lead lead--small">
               Chez <strong>Golden Sweet Creations</strong>, chaque bouchée réconcilie plaisir et santé.
-              Nos recettes sont pensées pour être partagées par tous, sans renoncer à la texture,
-              aux arômes ni à l’élégance.
+              Ingrédients naturels, textures maîtrisées, goût net.
             </p>
           </header>
 
-          <div class="cards" role="list">
-            <article class="card" role="listitem">
+          <div class="bento" role="list">
+            <article class="bento__card bento__card--lg" role="listitem">
               <img
-                src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1600&q=80"
                 alt="Pain sans gluten à croûte dorée"
                 loading="lazy"
               />
-              <div class="card__body">
-                <h3 class="card__title">Pain sans gluten</h3>
-                <p class="card__text">Croûte dorée, mie légère. Parfait au quotidien.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Sans gluten</li>
-                  <li>Artisanal</li>
-                </ul>
+              <div class="bento__content">
+                <span class="tag tag--pop">Sans gluten</span>
+                <h3 class="h3">Pain sans gluten</h3>
+                <p class="muted">Croûte dorée, mie légère. Parfait pour le quotidien.</p>
               </div>
             </article>
 
-            <article class="card" role="listitem">
+            <article class="bento__card" role="listitem">
               <img
-                src="https://images.unsplash.com/photo-1555507036-3639f4947f0b?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1555507036-3639f4947f0b?auto=format&fit=crop&w=1600&q=80"
                 alt="Brioche moelleuse"
                 loading="lazy"
               />
-              <div class="card__body">
-                <h3 class="card__title">Brioche IG bas</h3>
-                <p class="card__text">Moelleuse, douceur naturellement équilibrée.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>IG bas</li>
-                  <li>Sans lactose</li>
-                </ul>
+              <div class="bento__content">
+                <span class="tag tag--gold">IG bas</span>
+                <h3 class="h3">Brioche IG bas</h3>
+                <p class="muted">Moelleuse, douceur naturellement équilibrée.</p>
               </div>
             </article>
 
-            <article class="card" role="listitem">
+            <article class="bento__card" role="listitem">
               <img
-                src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=1600&q=80"
                 alt="Tartelette aux fruits frais"
                 loading="lazy"
               />
-              <div class="card__body">
-                <h3 class="card__title">Tartelette aux fruits frais</h3>
-                <p class="card__text">Sans sucre raffiné, fraîche et lumineuse.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Sans sucre raffiné</li>
-                  <li>Fruits frais</li>
-                </ul>
+              <div class="bento__content">
+                <span class="tag">Sans sucre raffiné</span>
+                <h3 class="h3">Tartelette aux fruits frais</h3>
+                <p class="muted">Légère, fraîche, pleine de saveurs.</p>
               </div>
             </article>
 
-            <article class="card" role="listitem">
+            <article class="bento__card" role="listitem">
               <img
-                src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1600&q=80"
                 alt="Cookies vegan et sans gluten"
                 loading="lazy"
               />
-              <div class="card__body">
-                <h3 class="card__title">Cookies vegan sans gluten</h3>
-                <p class="card__text">Croquants dehors, fondants dedans. Pur plaisir.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Vegan</li>
-                  <li>Sans gluten</li>
-                </ul>
+              <div class="bento__content">
+                <span class="tag tag--pop">Vegan</span>
+                <h3 class="h3">Cookies vegan sans gluten</h3>
+                <p class="muted">Croquants dehors, fondants dedans.</p>
               </div>
             </article>
 
-            <article class="card" role="listitem">
+            <article class="bento__card" role="listitem">
               <img
-                src="https://images.unsplash.com/photo-1587248720327-8eb72564be1e?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1587248720327-8eb72564be1e?auto=format&fit=crop&w=1600&q=80"
                 alt="Cupcakes crémeux"
                 loading="lazy"
               />
-              <div class="card__body">
-                <h3 class="card__title">Cupcakes sans lactose</h3>
-                <p class="card__text">Légers, crémeux, parfaits pour les instants sucrés.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Sans lactose</li>
-                  <li>Gourmand</li>
-                </ul>
+              <div class="bento__content">
+                <span class="tag">Sans lactose</span>
+                <h3 class="h3">Cupcakes sans lactose</h3>
+                <p class="muted">Légers, crémeux, ultra élégants.</p>
               </div>
             </article>
 
-            <article class="card card--cta" role="listitem" id="commande">
-              <div class="card__body">
-                <p class="eyebrow">Boîte découverte</p>
-                <h3 class="card__title">Commandez votre boîte aujourd’hui</h3>
-                <p class="card__text">
-                  Une sélection de nos best-sellers, adaptée à vos préférences (sans gluten, IG bas,
-                  sans lactose, vegan).
+            <article class="bento__card bento__card--cta" role="listitem" id="commande">
+              <div class="bento__content">
+                <span class="tag tag--gold">Boîte découverte</span>
+                <h3 class="h3">Commandez votre boîte aujourd’hui</h3>
+                <p class="muted">
+                  Une sélection de best‑sellers — adaptée à vos préférences (sans gluten, IG bas, sans
+                  lactose, vegan).
                 </p>
-                <a class="btn" href="#newsletter" aria-label="Commencer une commande">
-                  Commencer l’achat
-                </a>
-                <p class="fineprint">
-                  * Démo : ce site ne traite pas les paiements.
-                </p>
+                <div class="cta-row">
+                  <a class="btn" href="#newsletter">Commencer l’achat</a>
+                  <a class="btn btn--ghost" href="#engagement">Nos engagements</a>
+                </div>
+                <p class="fineprint">* Démo : ce site ne traite pas les paiements.</p>
               </div>
             </article>
           </div>
@@ -366,37 +389,47 @@
       </section>
 
       <!-- ENGAGEMENT -->
-      <section id="engagement" class="section quality" aria-label="Engagement qualité et santé">
-        <div class="frame section__grid section__grid--reverse">
-          <div class="section__copy">
-            <h2 class="section__title">Une pâtisserie qui respecte votre bien-être</h2>
-            <p class="section__lede">
-              Nous utilisons uniquement des ingrédients 100% naturels, sans conservateurs ni
-              additifs. Chaque recette est pensée pour respecter les régimes les plus stricts tout
-              en restant un pur plaisir pour les papilles.
+      <section id="engagement" class="section section--cream" aria-label="Engagement qualité et santé">
+        <div class="frame">
+          <header class="section__head">
+            <p class="kicker">Qualité & santé</p>
+            <h2 class="h2">Une pâtisserie qui respecte votre bien‑être</h2>
+            <p class="lead lead--small">
+              Ingrédients 100% naturels, sans conservateurs ni additifs. Des recettes conçues pour
+              respecter les régimes les plus stricts — et rester un pur plaisir.
             </p>
-            <ul class="checklist" aria-label="Points clés">
-              <li><span aria-hidden="true">✓</span> 100% naturel</li>
-              <li><span aria-hidden="true">✓</span> Sans gluten et sans lactose</li>
-              <li><span aria-hidden="true">✓</span> IG bas</li>
-              <li><span aria-hidden="true">✓</span> Sans additifs chimiques</li>
-              <li><span aria-hidden="true">✓</span> Vegan et végétarien</li>
-            </ul>
-            <div class="section__actions">
-              <a class="btn btn--ghost" href="#histoire">Découvrez nos valeurs</a>
-            </div>
-          </div>
+          </header>
 
-          <div class="section__media">
-            <div class="media-card media-card--tall">
-              <img
-                src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1400&q=80"
-                alt="Pâtisseries sur une table, lumière naturelle"
-                loading="lazy"
-              />
-              <div class="media-card__meta">
-                <p class="media-card__title">Textures & arômes</p>
-                <p class="media-card__subtitle">Sans excès, sans artifices.</p>
+          <div class="grid grid--quality">
+            <div class="stats">
+              <div class="stat">
+                <p class="stat__n">100%</p>
+                <p class="stat__t">Naturel</p>
+              </div>
+              <div class="stat">
+                <p class="stat__n">IG</p>
+                <p class="stat__t">Bas</p>
+              </div>
+              <div class="stat">
+                <p class="stat__n">0</p>
+                <p class="stat__t">Additifs</p>
+              </div>
+              <div class="stat">
+                <p class="stat__n">∞</p>
+                <p class="stat__t">Gourmand</p>
+              </div>
+            </div>
+
+            <div class="card card--list">
+              <ul class="checklist" aria-label="Points clés">
+                <li><span aria-hidden="true">✓</span> 100% naturel</li>
+                <li><span aria-hidden="true">✓</span> Sans gluten et sans lactose</li>
+                <li><span aria-hidden="true">✓</span> IG bas</li>
+                <li><span aria-hidden="true">✓</span> Sans additifs chimiques</li>
+                <li><span aria-hidden="true">✓</span> Vegan et végétarien</li>
+              </ul>
+              <div class="card__actions">
+                <a class="btn btn--ghost" href="#histoire">Découvrez nos valeurs</a>
               </div>
             </div>
           </div>
@@ -404,11 +437,14 @@
       </section>
 
       <!-- TÉMOIGNAGES -->
-      <section id="temoignages" class="section testimonials" aria-label="Témoignages clients">
+      <section id="temoignages" class="section" aria-label="Témoignages clients">
         <div class="frame">
-          <header class="section__header">
-            <h2 class="section__title">Ceux qui ont goûté… témoignent</h2>
-            <p class="section__lede">
+          <header class="section__head section__head--split">
+            <div>
+              <p class="kicker">Avis</p>
+              <h2 class="h2">Ceux qui ont goûté… témoignent</h2>
+            </div>
+            <p class="lead lead--small">
               Nos clients sont nos meilleurs ambassadeurs. Découvrez leurs retours et voyez comment
               nos créations les accompagnent au quotidien.
             </p>
@@ -442,59 +478,54 @@
             </div>
 
             <div class="carousel__controls">
-              <button class="icon-btn" type="button" data-prev aria-label="Témoignage précédent">
-                ←
-              </button>
+              <button class="icon-btn" type="button" data-prev aria-label="Témoignage précédent">←</button>
               <div class="dots" role="tablist" aria-label="Sélecteur de témoignages">
                 <button class="dot is-active" type="button" data-dot aria-label="Aller au témoignage 1"></button>
                 <button class="dot" type="button" data-dot aria-label="Aller au témoignage 2"></button>
                 <button class="dot" type="button" data-dot aria-label="Aller au témoignage 3"></button>
               </div>
-              <button class="icon-btn" type="button" data-next aria-label="Témoignage suivant">
-                →
-              </button>
+              <button class="icon-btn" type="button" data-next aria-label="Témoignage suivant">→</button>
             </div>
           </div>
         </div>
       </section>
 
       <!-- NEWSLETTER -->
-      <section id="newsletter" class="section newsletter" aria-label="Abonnez-vous à la newsletter">
-        <div class="frame newsletter__box">
-          <div class="newsletter__copy">
-            <h2 class="section__title">Restez informés des dernières créations et offres exclusives</h2>
-            <p class="section__lede">
-              Inscrivez-vous à notre newsletter pour découvrir nos nouvelles pâtisseries, bénéficier
-              d’offres spéciales et recevoir des conseils santé.
-            </p>
-          </div>
+      <section id="newsletter" class="section section--cream" aria-label="Abonnez-vous à la newsletter">
+        <div class="frame">
+          <div class="newsletter">
+            <div>
+              <p class="kicker">Newsletter</p>
+              <h2 class="h2">Restez informés des dernières créations et offres exclusives</h2>
+              <p class="lead lead--small">
+                Inscrivez-vous pour découvrir nos nouveautés, bénéficier d’offres spéciales et
+                recevoir des conseils santé.
+              </p>
+            </div>
 
-          <form class="newsletter__form" data-newsletter>
-            <label class="sr-only" for="email">Adresse email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="votre@email.com"
-              required
-            />
-            <button class="btn" type="submit">Je m’abonne</button>
-            <p class="fineprint" id="newsletter-help">
-              Zéro spam. Désinscription en un clic.
-            </p>
-          </form>
+            <form class="newsletter__form" data-newsletter>
+              <label class="sr-only" for="email">Adresse email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="votre@email.com"
+                required
+              />
+              <button class="btn" type="submit">Je m’abonne</button>
+              <p class="fineprint">Zéro spam. Désinscription en un clic.</p>
+            </form>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer" role="contentinfo">
-      <div class="frame footer__grid">
-        <div>
-          <p class="footer__brand">Golden Sweet Creations</p>
-          <p class="footer__text">
-            Pâtisserie artisanale inclusive : sans gluten, IG bas, sans lactose et vegan.
-          </p>
+      <div class="frame footer">
+        <div class="footer__brand">
+          <p class="footer__name">Golden Sweet Creations</p>
+          <p class="footer__text">Pâtisserie inclusive : sans gluten, IG bas, sans lactose et vegan.</p>
         </div>
 
         <div>
