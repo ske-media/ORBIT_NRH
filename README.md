@@ -1,52 +1,35 @@
-# Site vitrine — Chef pâtissier français (healthy)
+# Golden Sweet Creations — Site vitrine (One‑Pager)
 
-Site web vitrine pour un **chef pâtissier français** qui propose une pâtisserie **healthy** : ingrédients de qualité, recettes plus légères, plaisir sans compromis.
+Site vitrine one‑page (HTML/CSS/JS) pour un **chef pâtissier** ayant réinventé son art après un diagnostic de diabète, afin de proposer des créations **sans gluten**, **IG bas**, **sans lactose** et **vegan** — sans compromis sur le goût.
 
 ## Objectifs
 
-- **Mettre en valeur l’univers** du chef (signature, valeurs, inspirations).
-- **Présenter les créations** (gâteaux, viennoiseries, entremets, formats individuels).
-- **Mettre en avant l’approche healthy** (ingrédients, alternatives, allergènes).
-- **Faciliter la prise de contact** (commandes, événements, collaborations).
+- **Raconter l’histoire** du chef (résilience, excellence, nouvelle mission).
+- **Présenter les créations** (pains, brioches, tartelettes, cookies, cupcakes).
+- **Mettre en avant l’approche “healthy”** (ingrédients naturels, substitutions, régimes).
+- **Faciliter la conversion** (CTA vers commande + inscription newsletter).
 
-## Contenu attendu (pages)
+## Lancer en local
 
-- **Accueil** : promesse, best-sellers, preuves (avis/presse), CTA.
-- **À propos** : parcours, philosophie, sourcing.
-- **La carte** : collections, saisonnalité, formats, infos nutrition/allergènes (si disponible).
-- **Healthy** : ingrédients, substitutions (moins de sucre, farines, matières grasses), transparence.
-- **Galerie** : photos, coulisses, événements.
-- **Contact / Commande** : formulaire, réseaux, zone de livraison/retrait, délais.
+Option (simple, Python) :
 
-## Ton & identité
+```bash
+python3 -m http.server 8000
+```
 
-- **Chaleureux, premium, simple**.
-- Accent sur : **goût**, **artisanat**, **équilibre**, **saisonnalité**, **ingrédients vrais**.
+Puis ouvrez `http://localhost:8000`.
 
-## Démarrage (développement)
+## Fichiers
 
-Ce dépôt contient le site. Les commandes exactes dépendent de la stack (Node, PHP, etc.).
-Si vous ajoutez un framework, documentez ici :
+- `index.html` : structure du one‑pager + contenus + SEO (Open Graph / Twitter / JSON‑LD)
+- `styles.css` : thème bordeaux premium, panel crème, responsive
+- `script.js` : menu mobile, carrousel témoignages, toast newsletter, année auto
+- `robots.txt` / `sitemap.xml` : SEO technique (à adapter au domaine réel)
+- `manifest.webmanifest` / `favicon.svg` : PWA légère + favicon
 
-- **Prérequis** : versions (ex. Node, npm/pnpm/yarn)
-- **Installation** : `npm install` (ou équivalent)
-- **Lancement** : `npm run dev`
-- **Build** : `npm run build`
-- **Déploiement** : procédure / plateforme
+## SEO — points à adapter avant mise en ligne
 
-## Structure (à adapter)
+- **Domaine** : remplacez `https://goldensweetcreations.fr/` dans `index.html`, `robots.txt`, `sitemap.xml` par votre vrai domaine.
+- **Réseaux sociaux** : remplacez les liens “démo” dans le footer + le champ `sameAs` du JSON‑LD.
+- **Images** : pour de meilleures performances/SEO, hébergez des images locales optimisées (WebP/AVIF) et mettez à jour les URLs.
 
-Décrivez ici l’arborescence principale une fois le projet en place :
-
-- `src/` : code source
-- `public/` : assets statiques
-- `docs/` : documentation (si besoin)
-
-## Contribution
-
-- Ouvrir une branche dédiée
-- Faire une PR avec une description claire (avant/après, captures si UI)
-
-## Licence
-
-À définir.
