@@ -48,16 +48,23 @@
             type="button"
             aria-expanded="false"
             aria-controls="menu"
+            aria-label="Ouvrir le menu de navigation"
           >
-            Menu
+            <span aria-hidden="true">Menu</span>
           </button>
 
           <nav class="nav__links" id="menu" aria-label="Navigation principale">
-            <a href="index.html#histoire">Notre histoire</a>
+            <a href="histoire.html">Notre histoire</a>
             <a href="recettes.html">Recettes</a>
-            <a href="index.html#b2b">B2B</a>
-            <a href="index.html#engagement">Engagement</a>
-            <a href="index.html#faq">FAQ</a>
+            <a href="b2b.html">B2B</a>
+            <a href="engagement.html">Engagement</a>
+            <a href="faq.html">FAQ</a>
+            <a class="cart-link" href="cart.html" aria-label="Panier">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              <span class="cart-count" data-cart-count>0</span>
+            </a>
             <a class="btn btn--small" href="index.html#commande">Commander</a>
           </nav>
         </div>
@@ -126,6 +133,10 @@
                   <li>Sans gluten</li>
                   <li>Sans lactose</li>
                 </ul>
+                <div class="card__price">8,50 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="eclair-chocolat" data-price="8.50">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -142,6 +153,10 @@
                   <li>Sans gluten</li>
                   <li>IG bas</li>
                 </ul>
+                <div class="card__price">7,50 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="croissant-amandes" data-price="7.50">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -158,6 +173,10 @@
                   <li>Sans gluten</li>
                   <li>Sans lactose</li>
                 </ul>
+                <div class="card__price">9,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="millefeuille-vanille" data-price="9.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -175,6 +194,10 @@
                   <li>Vegan</li>
                   <li>IG bas</li>
                 </ul>
+                <div class="card__price">12,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="macarons-assortis" data-price="12.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -192,6 +215,10 @@
                   <li>IG bas</li>
                   <li>Vegan</li>
                 </ul>
+                <div class="card__price">10,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="tarte-tatin" data-price="10.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -209,6 +236,10 @@
                   <li>Sans lactose</li>
                   <li>IG bas</li>
                 </ul>
+                <div class="card__price">9,50 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="opera" data-price="9.50">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -225,6 +256,10 @@
                   <li>Sans gluten</li>
                   <li>Sans lactose</li>
                 </ul>
+                <div class="card__price">10,50 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="saint-honore" data-price="10.50">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -242,6 +277,10 @@
                   <li>IG bas</li>
                   <li>Vegan</li>
                 </ul>
+                <div class="card__price">8,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="financier-framboises" data-price="8.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -258,6 +297,10 @@
                   <li>Sans gluten</li>
                   <li>Sans lactose</li>
                 </ul>
+                <div class="card__price">9,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="paris-brest" data-price="9.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -275,6 +318,10 @@
                   <li>IG bas</li>
                   <li>Fruits frais</li>
                 </ul>
+                <div class="card__price">11,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="tarte-fraises" data-price="11.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -291,6 +338,10 @@
                   <li>Sans gluten</li>
                   <li>IG bas</li>
                 </ul>
+                <div class="card__price">8,50 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="baba-rhum" data-price="8.50">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -307,6 +358,10 @@
                   <li>Sans gluten</li>
                   <li>Sans lactose</li>
                 </ul>
+                <div class="card__price">8,50 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="religieuse-cafe" data-price="8.50">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -324,6 +379,10 @@
                   <li>Vegan</li>
                   <li>IG bas</li>
                 </ul>
+                <div class="card__price">7,00 €</div>
+                <button class="btn btn--small card__add-btn" data-add-to-cart data-product-id="tartelette-citron" data-price="7.00">
+                  Ajouter au panier
+                </button>
               </div>
             </article>
 
@@ -386,6 +445,7 @@
     </footer>
 
     <div class="toast" role="status" aria-live="polite" aria-atomic="true" hidden data-toast></div>
+    <script src="cart.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

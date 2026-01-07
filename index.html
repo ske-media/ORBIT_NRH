@@ -10,6 +10,10 @@
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="theme-color" content="#3a0716" />
     <meta name="color-scheme" content="dark light" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Chef Bulier" />
     <title>Chef Bulier — Pâtisserie saine, sans compromis</title>
 
     <link rel="canonical" href="https://goldensweetcreations.fr/" />
@@ -47,7 +51,9 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" href="script.js" as="script" />
 
     <script type="application/ld+json">
       {
@@ -117,8 +123,9 @@
             type="button"
             aria-expanded="false"
             aria-controls="menu"
+            aria-label="Ouvrir le menu de navigation"
           >
-            Menu
+            <span aria-hidden="true">Menu</span>
           </button>
 
           <nav class="nav__links" id="menu" aria-label="Navigation principale">
@@ -127,6 +134,12 @@
             <a href="b2b.html">B2B</a>
             <a href="engagement.html">Engagement</a>
             <a href="faq.html">FAQ</a>
+            <a class="cart-link" href="cart.html" aria-label="Panier">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              <span class="cart-count" data-cart-count>0</span>
+            </a>
             <a class="btn btn--small" href="index.html#commande">Commander</a>
           </nav>
         </div>
@@ -180,8 +193,11 @@
               <figure class="collage__main">
                 <img
                   src="images/patisseries/opera.png"
+                  srcset="images/patisseries/opera.png 1x, images/patisseries/opera.png 2x"
                   alt="Chef pâtissier en action dans une cuisine lumineuse"
                   loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
                 />
                 <figcaption class="sticker sticker--quote">
                   “Le goût d’abord. La santé aussi.”
@@ -191,8 +207,10 @@
               <figure class="collage__tile collage__tile--1">
                 <img
                   src="images/patisseries/millefeuille.png"
+                  srcset="images/patisseries/millefeuille.png 1x, images/patisseries/millefeuille.png 2x"
                   alt="Viennoiseries artisanales dorées"
                   loading="lazy"
+                  decoding="async"
                 />
                 <figcaption class="sticker sticker--seal">
                   <span class="sticker__kicker">Sans</span>
@@ -203,8 +221,10 @@
               <figure class="collage__tile collage__tile--2">
                 <img
                   src="images/patisseries/tarte_fraises.png"
+                  srcset="images/patisseries/tarte_fraises.png 1x, images/patisseries/tarte_fraises.png 2x"
                   alt="Ingrédients naturels : fruits, céréales et graines"
                   loading="lazy"
+                  decoding="async"
                 />
                 <figcaption class="sticker sticker--tag">Ingrédients naturels</figcaption>
               </figure>
@@ -328,17 +348,17 @@
 
             <div class="bestsellers__controls">
               <button class="icon-btn" type="button" data-bestseller-prev aria-label="Best-seller précédent">
-                ←
+                <span aria-hidden="true">←</span>
               </button>
               <div class="dots" role="tablist" aria-label="Sélecteur de best-sellers">
-                <button class="dot is-active" type="button" data-bestseller-dot aria-label="Aller au best-seller 1"></button>
-                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 2"></button>
-                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 3"></button>
-                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 4"></button>
-                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 5"></button>
+                <button class="dot is-active" type="button" data-bestseller-dot role="tab" aria-selected="true" aria-label="Aller au best-seller 1 : Macarons assortis"></button>
+                <button class="dot" type="button" data-bestseller-dot role="tab" aria-selected="false" aria-label="Aller au best-seller 2 : Éclair au chocolat"></button>
+                <button class="dot" type="button" data-bestseller-dot role="tab" aria-selected="false" aria-label="Aller au best-seller 3 : Opéra"></button>
+                <button class="dot" type="button" data-bestseller-dot role="tab" aria-selected="false" aria-label="Aller au best-seller 4 : Millefeuille vanille"></button>
+                <button class="dot" type="button" data-bestseller-dot role="tab" aria-selected="false" aria-label="Aller au best-seller 5 : Tarte Tatin aux pommes"></button>
               </div>
               <button class="icon-btn" type="button" data-bestseller-next aria-label="Best-seller suivant">
-                →
+                <span aria-hidden="true">→</span>
               </button>
             </div>
 
@@ -435,15 +455,15 @@
 
             <div class="carousel__controls">
               <button class="icon-btn" type="button" data-prev aria-label="Témoignage précédent">
-                ←
+                <span aria-hidden="true">←</span>
               </button>
               <div class="dots" role="tablist" aria-label="Sélecteur de témoignages">
-                <button class="dot is-active" type="button" data-dot aria-label="Aller au témoignage 1"></button>
-                <button class="dot" type="button" data-dot aria-label="Aller au témoignage 2"></button>
-                <button class="dot" type="button" data-dot aria-label="Aller au témoignage 3"></button>
+                <button class="dot is-active" type="button" data-dot role="tab" aria-selected="true" aria-label="Aller au témoignage 1 : Marc L."></button>
+                <button class="dot" type="button" data-dot role="tab" aria-selected="false" aria-label="Aller au témoignage 2 : Sophie R."></button>
+                <button class="dot" type="button" data-dot role="tab" aria-selected="false" aria-label="Aller au témoignage 3 : Claire P."></button>
               </div>
               <button class="icon-btn" type="button" data-next aria-label="Témoignage suivant">
-                →
+                <span aria-hidden="true">→</span>
               </button>
             </div>
           </div>
@@ -665,6 +685,7 @@
     </footer>
 
     <div class="toast" role="status" aria-live="polite" aria-atomic="true" hidden data-toast></div>
+    <script src="cart.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

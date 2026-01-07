@@ -1,0 +1,15 @@
+{
+  "name": "golden-sweet-creations",
+  "version": "1.0.0",
+  "description": "Site vitrine one-page pour Golden Sweet Creations",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
+
+

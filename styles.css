@@ -111,6 +111,13 @@ body {
   min-height: 100vh;
   /* Amélioration de la lisibilité */
   font-feature-settings: "kern" 1, "liga" 1;
+  /* Animation de chargement de page */
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+body.loaded {
+  opacity: 1;
 }
 
 /* Fond artistique avec dégradés sophistiqués */
@@ -128,7 +135,7 @@ body::before {
   opacity: 1;
 }
 
-/* Texture grain subtil (bobo-chic) */
+/* Texture grain subtil (bobo-chic) - amélioration avec animation subtile */
 body::after {
   content: "";
   position: fixed;
@@ -141,6 +148,16 @@ body::after {
   background-size: 4px 4px, 3px 3px;
   mix-blend-mode: overlay;
   opacity: 0.4;
+  animation: grainMove 20s linear infinite;
+}
+
+@keyframes grainMove {
+  0%, 100% {
+    background-position: 0% 0%, 0% 0%;
+  }
+  50% {
+    background-position: 2px 2px, -2px -2px;
+  }
 }
 
 .site-header,
@@ -156,6 +173,9 @@ body::after {
 .card,
 .media-card {
   will-change: transform;
+  transform: translateZ(0); /* Force l'accélération GPU */
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 img {
@@ -487,8 +507,13 @@ a {
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: var(--shadow-float);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  transition: transform 0.1s ease;
 }
 
 .btn:hover::after {
@@ -528,11 +553,21 @@ a {
   font-size: 13px;
 }
 
-/* Focus visible */
+/* Focus visible - amélioration de l'accessibilité */
 :focus-visible {
   outline: 3px solid var(--or-champagne);
   outline-offset: 4px;
   clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  box-shadow: 0 0 0 2px var(--bordeaux-profond), 0 0 0 6px var(--or-champagne);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Amélioration des états focus pour tous les éléments interactifs */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  z-index: 10;
+  position: relative;
 }
 
 /* ============================================
@@ -545,6 +580,13 @@ a {
 .hero {
   margin: var(--space-xl) auto;
   animation: fadeInUp 1s ease-out;
+  /* Optimisation pour le scroll reveal */
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.hero.visible {
+  opacity: 1;
 }
 
 @keyframes fadeInUp {
@@ -733,6 +775,8 @@ a {
   position: relative;
   /* Amélioration de la profondeur */
   transform-style: preserve-3d;
+  /* Réinitialisation de la transform pour le parallaxe */
+  will-change: transform;
 }
 
 .collage__main::before {
@@ -769,6 +813,9 @@ a {
   /* Amélioration du rendu d'image */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+  /* Optimisation du chargement */
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
 }
 
 .collage__main:hover img {
@@ -787,9 +834,10 @@ a {
 }
 
 .collage__tile:hover {
-  transform: scale(1.05) rotate(0deg) !important;
+  transform: scale(1.05) rotate(0deg) translateY(-5px) !important;
   z-index: 10;
   box-shadow: var(--shadow-float);
+  filter: brightness(1.05);
 }
 
 .collage__tile img {
@@ -901,6 +949,15 @@ a {
 .section {
   padding: var(--space-2xl) 0;
   position: relative;
+  /* Scroll reveal optimization */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section__grid {
@@ -1000,8 +1057,9 @@ a {
 }
 
 .media-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-8px) scale(1.01);
   box-shadow: var(--shadow-float);
+  filter: brightness(1.03);
 }
 
 .media-card img {
@@ -1100,9 +1158,10 @@ a {
 }
 
 .card:hover {
-  transform: translateY(-8px) rotateX(2deg);
+  transform: translateY(-8px) rotateX(2deg) scale(1.01);
   box-shadow: var(--shadow-float);
   border-color: rgba(212, 175, 55, 0.4);
+  filter: brightness(1.02);
 }
 
 /* Effet de brillance sur les cartes */
@@ -1301,18 +1360,18 @@ a {
   display: block;
   position: relative;
   opacity: 1;
-  transform: translateX(0);
-  animation: fadeInSlide 0.6s ease-out;
+  transform: translateX(0) scale(1);
+  animation: fadeInSlide 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes fadeInSlide {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(30px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
@@ -1407,18 +1466,18 @@ a {
   display: block;
   position: relative;
   opacity: 1;
-  transform: translateY(0);
-  animation: fadeIn 0.6s ease-out;
+  transform: translateY(0) scale(1);
+  animation: fadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(20px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -1468,8 +1527,13 @@ a {
 .icon-btn:hover {
   background: rgba(255, 255, 255, 1);
   border-color: var(--or-champagne);
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(5deg);
   box-shadow: var(--shadow-gold);
+}
+
+.icon-btn:active {
+  transform: scale(1.05) rotate(0deg);
+  transition: transform 0.1s ease;
 }
 
 .dots {
@@ -1629,7 +1693,8 @@ a {
   outline: none;
   border-color: var(--or-champagne);
   background: var(--blanc-neige);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), 0 4px 12px rgba(212, 175, 55, 0.15);
+  transform: translateY(-1px);
 }
 
 .newsletter__form input::placeholder {
@@ -1654,6 +1719,7 @@ a {
     radial-gradient(ellipse 1200px 400px at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
     linear-gradient(180deg, var(--bordeaux-riche) 0%, var(--bordeaux-profond) 100%);
   color: rgba(255, 255, 255, 0.85);
+  position: relative;
 }
 
 .footer__grid {
@@ -1757,19 +1823,42 @@ a {
   font-weight: 600;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  animation: slideUp 0.4s ease-out;
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   /* Amélioration de la lisibilité */
   line-height: 1.6;
+  /* Effet de brillance subtil */
+  position: relative;
+  overflow: hidden;
+}
+
+.toast::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: toastShine 2s ease-in-out;
+}
+
+@keyframes toastShine {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(20px);
+    transform: translateX(-50%) translateY(20px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 }
 
@@ -2116,6 +2205,85 @@ a {
   }
 }
 
+/* ============================================
+   LOADING STATES & SKELETON SCREENS
+   ============================================ */
+.loading-skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   PARALLAX EFFECTS SUBTILS
+   ============================================ */
+.parallax-slow {
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+/* ============================================
+   AMÉLIORATION DES OMBRES DYNAMIQUES
+   ============================================ */
+.card,
+.media-card,
+.collage__main {
+  position: relative;
+}
+
+.card::before,
+.media-card::before,
+.collage__main::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+    rgba(212, 175, 55, 0.1) 0%, 
+    transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+  clip-path: inherit;
+}
+
+.card:hover::before,
+.media-card:hover::before,
+.collage__main:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   AMÉLIORATION DES CONTRASTES POUR ACCESSIBILITÉ
+   ============================================ */
+@media (prefers-contrast: high) {
+  .btn,
+  .card,
+  .media-card {
+    border-width: 3px;
+  }
+  
+  .btn {
+    box-shadow: 0 0 0 2px var(--bordeaux-profond);
+  }
+  
+  :focus-visible {
+    outline-width: 4px;
+  }
+}
+
 /* Versions light des sections */
 .story--light,
 .quality--light,
@@ -2171,6 +2339,2348 @@ a {
   }
 }
 
+/* ============================================
+   AMÉLIORATIONS VISUELLES AVANCÉES
+   ============================================ */
+/* Effet de brillance sur les boutons au hover */
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::after {
+  left: 100%;
+}
+
+/* Amélioration des transitions de chargement */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.loading {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Amélioration des ombres portées avec profondeur */
+.card,
+.media-card,
+.collage__main {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.card:hover,
+.media-card:hover,
+.collage__main:hover {
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+}
+
+/* Amélioration de la texture avec backdrop-filter */
+.hero__grid,
+.section__grid,
+.section__header {
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+/* Effet de gradient animé sur les badges */
+.hero__badges li {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__badges li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.hero__badges li:hover::before {
+  left: 100%;
+}
+
+/* Amélioration des chips avec effet de profondeur */
+.chips li {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chips li:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Amélioration des dots avec animation */
+.dot {
+  position: relative;
+  overflow: visible;
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: var(--or-champagne);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.dot:hover::after,
+.dot.is-active::after {
+  opacity: 0.2;
+  transform: scale(1);
+}
+
+/* Amélioration de la newsletter avec effet de focus */
+.newsletter__form {
+  position: relative;
+}
+
+.newsletter__form::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, 
+    var(--or-champagne), 
+    var(--pop-framboise), 
+    var(--or-champagne));
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  clip-path: polygon(var(--cut-md) 0%, 100% 0%, 100% calc(100% - var(--cut-md)), calc(100% - var(--cut-md)) 100%, 0% 100%, 0% var(--cut-md));
+  animation: gradientFlow 3s ease infinite;
+}
+
+.newsletter__form:focus-within::before {
+  opacity: 0.1;
+}
+
+/* Amélioration des stickers avec effet de profondeur */
+.sticker {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.sticker:hover {
+  transform: translateZ(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Amélioration de la navigation avec indicateur actif */
+.nav__links a {
+  position: relative;
+}
+
+.nav__links a[aria-current="page"] {
+  color: var(--or-champagne);
+}
+
+.nav__links a[aria-current="page"]::after {
+  transform: translateX(-50%) scaleX(1);
+  background: linear-gradient(90deg, transparent, var(--or-champagne), transparent);
+}
+
+/* Amélioration du footer avec effet de gradient */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--or-champagne), 
+    var(--pop-framboise), 
+    var(--or-champagne), 
+    transparent);
+  opacity: 0.6;
+}
+
+/* ============================================
+   PANIER - COMPTEUR DANS LE HEADER (PREMIUM)
+   ============================================ */
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  transition: var(--transition-smooth);
+}
+
+.cart-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  background: var(--white-glass);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
+
+.cart-link:hover::before {
+  opacity: 1;
+}
+
+.cart-link svg {
+  width: 20px;
+  height: 20px;
+  transition: var(--transition-smooth);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.cart-link:hover svg {
+  transform: scale(1.15) rotate(-5deg);
+  filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+}
+
+.cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  background: linear-gradient(135deg, var(--pop-framboise) 0%, var(--pop-corail) 100%);
+  color: var(--blanc-neige);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.1);
+  transition: var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+}
+
+.cart-count::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cart-count:hover::before {
+  opacity: 1;
+}
+
+.cart-count.is-empty {
+  opacity: 0;
+  transform: scale(0) rotate(180deg);
+  pointer-events: none;
+}
+
+.cart-link:hover .cart-count:not(.is-empty) {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+/* Animation d'ajout au panier */
+@keyframes cartCountPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3) rotate(10deg);
+  }
+}
+
+.cart-count.just-added {
+  animation: cartCountPulse 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ============================================
+   BOUTON AJOUTER AU PANIER (PREMIUM)
+   ============================================ */
+.card__price {
+  margin: var(--space-md) 0 var(--space-sm);
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--or-champagne) 0%, var(--or-doré) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.card__price::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--or-champagne), transparent);
+  opacity: 0.3;
+  transition: var(--transition-smooth);
+}
+
+.card:hover .card__price::after {
+  opacity: 0.6;
+  width: 100%;
+}
+
+.card__add-btn {
+  width: 100%;
+  margin-top: var(--space-sm);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.card__add-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--or-doré) 0%, var(--or-satin) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
+
+.card__add-btn::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+  transition: var(--transition-bounce);
+  z-index: 2;
+}
+
+.card__add-btn:hover::before {
+  opacity: 1;
+}
+
+.card__add-btn.added {
+  background: linear-gradient(135deg, var(--pop-framboise) 0%, var(--pop-corail) 100%);
+  animation: addedToCart 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.card__add-btn.added::after {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  animation: checkmarkAppear 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+}
+
+@keyframes addedToCart {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.92);
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes checkmarkAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Effet de particules premium au clic */
+@keyframes particleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg);
+  }
+}
+
+/* ============================================
+   PAGE PANIER
+   ============================================ */
+.cart-empty {
+  text-align: center;
+  padding: var(--space-2xl);
+  animation: emptyFadeIn 0.8s ease-out;
+}
+
+.cart-empty__content {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  clip-path: polygon(var(--cut-lg) 0%, 100% 0%, 100% calc(100% - var(--cut-lg)), calc(100% - var(--cut-lg)) 100%, 0% 100%, 0% var(--cut-lg));
+  background:
+    radial-gradient(ellipse 400px 200px at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 60%),
+    linear-gradient(135deg, var(--crème-ivoire) 0%, var(--crème-vanille) 100%);
+  box-shadow: var(--shadow-elegant);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.cart-empty svg {
+  color: var(--ink-soft);
+  margin-bottom: var(--space-md);
+  animation: emptyIconFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes emptyFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes emptyIconFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+.cart-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--space-xl);
+}
+
+.cart__items {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto auto;
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-md);
+  clip-path: polygon(var(--cut-md) 0%, 100% 0%, 100% calc(100% - var(--cut-md)), calc(100% - var(--cut-md)) 100%, 0% 100%, 0% var(--cut-md));
+  background: var(--crème-ivoire);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-elegant);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  animation: cartItemSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.cart-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(233, 30, 99, 0.05) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: 0;
+}
+
+.cart-item:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: var(--shadow-float);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.cart-item:hover::before {
+  opacity: 1;
+}
+
+@keyframes cartItemSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cart-item.removing {
+  animation: cartItemSlideOut 0.4s cubic-bezier(0.55, 0.055, 0.675, 0.19) both;
+}
+
+@keyframes cartItemSlideOut {
+  to {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+  }
+}
+
+.cart-item__image {
+  width: 100px;
+  height: 100px;
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  overflow: hidden;
+  background: var(--crème-poudré);
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.cart-item__image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(233, 30, 99, 0.1) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: 1;
+}
+
+.cart-item:hover .cart-item__image {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cart-item:hover .cart-item__image::before {
+  opacity: 1;
+}
+
+.cart-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
+  position: relative;
+  z-index: 0;
+}
+
+.cart-item:hover .cart-item__image img {
+  transform: scale(1.1);
+}
+
+.cart-item__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cart-item__price {
+  margin: var(--space-xs) 0 0;
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.cart-item__quantity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.quantity-btn {
+  width: 36px;
+  height: 36px;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  border: 2px solid rgba(27, 13, 18, 0.15);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.quantity-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--or-champagne) 0%, var(--or-doré) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
+
+.quantity-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: var(--or-champagne);
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  color: var(--bordeaux-profond);
+}
+
+.quantity-btn:hover::before {
+  opacity: 1;
+}
+
+.quantity-btn:active {
+  transform: scale(1.05) rotate(0deg);
+  transition: transform 0.1s ease;
+}
+
+.quantity-btn[data-increase]:hover {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(244, 208, 63, 0.2) 100%);
+}
+
+.quantity-btn[data-decrease]:hover {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(255, 107, 157, 0.1) 100%);
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 8px;
+  text-align: center;
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  border: 2px solid rgba(27, 13, 18, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+  font-family: var(--font-sans);
+}
+
+.quantity-input:focus {
+  outline: none;
+  border-color: var(--or-champagne);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.cart-item__total-price {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--or-champagne);
+  min-width: 80px;
+  text-align: right;
+}
+
+.cart-item__remove {
+  width: 40px;
+  height: 40px;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  border: 2px solid rgba(233, 30, 99, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--pop-framboise);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.cart-item__remove::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--pop-framboise) 0%, var(--pop-corail) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
+
+.cart-item__remove svg {
+  transition: var(--transition-smooth);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.cart-item__remove:hover {
+  background: var(--pop-framboise);
+  color: var(--blanc-neige);
+  transform: scale(1.15) rotate(90deg);
+  box-shadow: var(--shadow-pop);
+  border-color: var(--pop-framboise);
+}
+
+.cart-item__remove:hover::before {
+  opacity: 1;
+}
+
+.cart-item__remove:hover svg {
+  transform: scale(1.2);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.cart-item__remove:active {
+  transform: scale(1.05) rotate(45deg);
+  transition: transform 0.1s ease;
+}
+
+.cart-summary {
+  padding: var(--space-lg);
+  clip-path: polygon(var(--cut-lg) 0%, 100% 0%, 100% calc(100% - var(--cut-lg)), calc(100% - var(--cut-lg)) 100%, 0% 100%, 0% var(--cut-lg));
+  background:
+    radial-gradient(ellipse 600px 200px at 0% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+    linear-gradient(135deg, var(--crème-ivoire) 0%, var(--crème-vanille) 100%);
+  box-shadow: var(--shadow-elegant);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: sticky;
+  top: 100px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: var(--transition-smooth);
+  animation: summaryFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.cart-summary:hover {
+  box-shadow: var(--shadow-float);
+  transform: translateY(-2px);
+}
+
+@keyframes summaryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-summary__title {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cart-summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(27, 13, 18, 0.1);
+  color: var(--ink-muted);
+  font-size: 15px;
+}
+
+.cart-summary__row--total {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 2px solid rgba(212, 175, 55, 0.3);
+  border-bottom: none;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(233, 30, 99, 0.05) 100%);
+  padding: var(--space-md);
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  margin-left: calc(var(--space-md) * -1);
+  margin-right: calc(var(--space-md) * -1);
+  margin-bottom: calc(var(--space-md) * -1);
+  position: relative;
+}
+
+.cart-summary__row--total::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--or-champagne) 0%, var(--or-doré) 100%);
+  opacity: 0.05;
+  clip-path: inherit;
+  z-index: -1;
+}
+
+.cart-summary__actions {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+/* ============================================
+   PAGE CHECKOUT
+   ============================================ */
+.checkout__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-xl);
+}
+
+.checkout-form {
+  padding: var(--space-xl);
+  clip-path: polygon(var(--cut-lg) 0%, 100% 0%, 100% calc(100% - var(--cut-lg)), calc(100% - var(--cut-lg)) 100%, 0% 100%, 0% var(--cut-lg));
+  background:
+    radial-gradient(ellipse 600px 200px at 0% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 60%),
+    linear-gradient(135deg, var(--crème-ivoire) 0%, var(--crème-vanille) 100%);
+  box-shadow: var(--shadow-elegant);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: formFadeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  clip-path: polygon(var(--cut-md) 0%, 100% 0%, 100% calc(100% - var(--cut-md)), calc(100% - var(--cut-md)) 100%, 0% 100%, 0% var(--cut-md));
+  border: 2px solid rgba(27, 13, 18, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 15px;
+  font-family: var(--font-sans);
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--or-champagne);
+  background: var(--blanc-neige);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), 0 4px 12px rgba(212, 175, 55, 0.15);
+  transform: translateY(-1px);
+}
+
+.form-group input:focus::placeholder,
+.form-group select:focus::placeholder {
+  color: var(--ink-soft);
+  transition: color 0.3s ease;
+}
+
+.form-group--inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.form-group input[type="checkbox"] {
+  margin-right: var(--space-xs);
+  width: 18px;
+  height: 18px;
+  accent-color: var(--or-champagne);
+}
+
+.form-group label span {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.checkout-form__submit {
+  width: 100%;
+  margin-top: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.checkout-form__submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--or-doré) 0%, var(--or-satin) 100%);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
+
+.checkout-form__submit:hover::before {
+  opacity: 1;
+}
+
+.checkout-form__submit:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Animation de chargement pour le bouton submit */
+.checkout-form__submit.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.checkout-form__submit.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--blanc-neige);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.checkout-summary {
+  padding: var(--space-lg);
+  clip-path: polygon(var(--cut-lg) 0%, 100% 0%, 100% calc(100% - var(--cut-lg)), calc(100% - var(--cut-lg)) 100%, 0% 100%, 0% var(--cut-lg));
+  background:
+    radial-gradient(ellipse 600px 200px at 0% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+    linear-gradient(135deg, var(--crème-ivoire) 0%, var(--crème-vanille) 100%);
+  box-shadow: var(--shadow-elegant);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: sticky;
+  top: 100px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: var(--transition-smooth);
+  animation: summaryFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.checkout-summary:hover {
+  box-shadow: var(--shadow-float);
+  transform: translateY(-2px);
+}
+
+.checkout-summary__title {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.checkout-summary__items {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 2px solid rgba(27, 13, 18, 0.1);
+}
+
+.checkout-item {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  align-items: center;
+  padding: var(--space-sm);
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(27, 13, 18, 0.05);
+  transition: var(--transition-smooth);
+}
+
+.checkout-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-item__image {
+  width: 60px;
+  height: 60px;
+  clip-path: polygon(var(--cut-sm) 0%, 100% 0%, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0% 100%, 0% var(--cut-sm));
+  overflow: hidden;
+  background: var(--crème-poudré);
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.checkout-item:hover .checkout-item__image {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.checkout-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
+}
+
+.checkout-item:hover .checkout-item__image img {
+  transform: scale(1.1);
+}
+
+.checkout-item__details {
+  flex: 1;
+}
+
+.checkout-item__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.checkout-item__meta {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.checkout-item__price {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--or-champagne);
+}
+
+.checkout-summary__totals {
+  margin-top: var(--space-md);
+}
+
+.checkout-summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(27, 13, 18, 0.1);
+  color: var(--ink-muted);
+  font-size: 15px;
+}
+
+.checkout-summary__row--total {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 2px solid rgba(212, 175, 55, 0.3);
+  border-bottom: none;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+@media (max-width: 1200px) {
+  .cart-content,
+  .checkout__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cart-summary,
+  .checkout-summary {
+    position: static;
+  }
+}
+
+/* ============================================
+   AMÉLIORATIONS PREMIUM SUPPLÉMENTAIRES
+   ============================================ */
+/* Effet de brillance sur les cartes au hover */
+.card:hover .card__add-btn::before {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    transparent 50%, 
+    rgba(255, 255, 255, 0.2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animation de pulse pour les prix */
+@keyframes pricePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.card:hover .card__price {
+  animation: pricePulse 2s ease-in-out infinite;
+}
+
+/* Effet de profondeur 3D sur les cartes du panier */
+.cart-item {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.cart-item:hover {
+  transform: translateY(-2px) scale(1.01) rotateX(1deg);
+}
+
+/* Animation de chargement élégante */
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-skeleton {
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+/* Effet de gradient animé sur les totaux */
+.cart-summary__row--total,
+.checkout-summary__row--total {
+  position: relative;
+  overflow: hidden;
+}
+
+.cart-summary__row--total::after,
+.checkout-summary__row--total::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  animation: shimmerTotal 3s infinite;
+}
+
+@keyframes shimmerTotal {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Amélioration des transitions de page */
+body {
+  transition: opacity 0.3s ease;
+}
+
+/* Effet de focus premium sur les inputs */
+.form-group input:focus,
+.form-group select:focus {
+  position: relative;
+  z-index: 1;
+}
+
+.form-group input:focus + label,
+.form-group select:focus + label {
+  color: var(--or-champagne);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   PAGE DE CONFIRMATION PREMIUM
+   ============================================ */
+.confirmation-icon {
+  animation: confirmationIconAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+}
+
+.confirmation-icon::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+  animation: confirmationRipple 1.5s ease-out infinite;
+  z-index: -1;
+}
+
+.checkmark-svg {
+  animation: checkmarkDraw 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+}
+
+.confirmation-ripple {
+  position: absolute;
+  inset: -20px;
+  border: 2px solid var(--or-champagne);
+  border-radius: 50%;
+  opacity: 0;
+  animation: confirmationRipple2 1.5s ease-out 0.5s infinite;
+}
+
+@keyframes confirmationIconAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  60% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes checkmarkDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes confirmationRipple {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes confirmationRipple2 {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Amélioration des transitions de page avec fade */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.site-main {
+  animation: pageFadeIn 0.6s ease-out;
+}
+
+/* Effet de scroll reveal premium pour les sections */
+.section.visible {
+  animation: sectionReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Amélioration du toast avec animation premium */
+.toast {
+  animation: toastSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes toastSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Effet de hover premium sur les cartes de recettes */
+.card:hover .card__add-btn {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+}
+
+.card__add-btn:active {
+  transform: translateY(0) scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Animation de chargement élégante pour les images */
+.cart-item__image,
+.checkout-item__image {
+  position: relative;
+  overflow: hidden;
+}
+
+.cart-item__image::after,
+.checkout-item__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* L'animation de shimmer sera gérée par JavaScript */
+.cart-item__image img.loaded {
+  opacity: 1;
+}
+
+/* Effet de focus premium sur les boutons */
+.btn:focus-visible,
+.quantity-btn:focus-visible,
+.cart-item__remove:focus-visible {
+  outline: 3px solid var(--or-champagne);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.2);
+}
+
+/* Animation de pulse subtile sur le compteur de panier */
+@keyframes cartCountPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.cart-count.just-added {
+  animation: cartCountPulse 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Animation de rebond premium sur la carte lors de l'ajout */
+@keyframes cardBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotateZ(0deg);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.02) rotateZ(1deg);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.01) rotateZ(-0.5deg);
+  }
+  75% {
+    transform: translateY(-2px) scale(1) rotateZ(0.5deg);
+  }
+}
+
+/* Animation de célébration pour le prix */
+@keyframes priceCelebration {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+}
+
+/* Amélioration de l'accessibilité avec indicateurs visuels */
+.cart-item:focus-within,
+.checkout-item:focus-within {
+  outline: 3px solid var(--or-champagne);
+  outline-offset: 4px;
+  border-color: var(--or-champagne);
+}
+
+/* Effet de profondeur premium sur les résumés */
+.cart-summary,
+.checkout-summary {
+  position: relative;
+}
+
+.cart-summary::after,
+.checkout-summary::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, 
+    var(--or-champagne) 0%, 
+    var(--pop-framboise) 50%, 
+    var(--or-champagne) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  clip-path: polygon(var(--cut-lg) 0%, 100% 0%, 100% calc(100% - var(--cut-lg)), calc(100% - var(--cut-lg)) 100%, 0% 100%, 0% var(--cut-lg));
+  filter: blur(10px);
+}
+
+.cart-summary:hover::after,
+.checkout-summary:hover::after {
+  opacity: 0.1;
+}
+
+/* ============================================
+   AMÉLIORATIONS PREMIUM FINALES
+   ============================================ */
+/* Effet de loading élégant pour les images */
+.cart-item__image,
+.checkout-item__image {
+  position: relative;
+}
+
+.cart-item__image::before,
+.checkout-item__image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: imageShimmer 1.5s infinite;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cart-item__image img:not(.loaded) ~ ::before,
+.checkout-item__image img:not(.loaded) ~ ::before {
+  opacity: 1;
+}
+
+.cart-item__image img.loaded ~ ::before,
+.checkout-item__image img.loaded ~ ::before {
+  opacity: 0;
+}
+
+@keyframes imageShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animation de transition de page premium */
+@keyframes pageTransitionOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+  }
+}
+
+body.page-transitioning {
+  animation: pageTransitionOut 0.4s ease-in forwards;
+}
+
+/* Effet de hover premium sur les liens du panier */
+.cart-link {
+  position: relative;
+}
+
+.cart-link::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: calc(100% - 16px);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--or-champagne), transparent);
+  transition: var(--transition-smooth);
+  clip-path: polygon(0% 0%, calc(100% - 2px) 0%, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0% calc(100% - 2px), 0% 2px);
+}
+
+.cart-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Amélioration des animations de quantité */
+.quantity-input {
+  position: relative;
+}
+
+.quantity-input:focus {
+  background: var(--blanc-neige);
+  border-color: var(--or-champagne);
+}
+
+/* Animation de succès premium pour les actions */
+@keyframes successPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(212, 175, 55, 0);
+  }
+}
+
+.cart-item.success-action {
+  animation: successPulse 0.6s ease;
+}
+
+/* Effet de profondeur premium sur les boutons */
+.btn,
+.quantity-btn,
+.cart-item__remove {
+  position: relative;
+  z-index: 1;
+}
+
+.btn::before,
+.quantity-btn::before,
+.cart-item__remove::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--or-champagne), var(--pop-framboise));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(8px);
+  clip-path: inherit;
+}
+
+.btn:hover::before,
+.quantity-btn:hover::before,
+.cart-item__remove:hover::before {
+  opacity: 0.3;
+}
+
+/* Animation de chargement premium pour le checkout */
+.checkout-form__submit.loading {
+  color: transparent;
+}
+
+.checkout-form__submit.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--blanc-neige);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  animation: spin 0.8s linear infinite;
+}
+
+/* Amélioration de l'animation de confirmation */
+.confirmation-icon {
+  position: relative;
+}
+
+.confirmation-icon::after {
+  content: "";
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  animation: confirmationGlow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes confirmationGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+/* Effet de parallaxe subtil sur les images du panier */
+@media (min-width: 769px) {
+  .cart-item__image {
+    transition: transform 0.1s ease-out;
+  }
+}
+
+/* Amélioration de l'accessibilité avec focus visible premium */
+.cart-item:focus-within,
+.checkout-item:focus-within {
+  outline: 3px solid var(--or-champagne);
+  outline-offset: 4px;
+  border-color: var(--or-champagne);
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.1);
+}
+
+/* Animation de fade in premium pour les nouveaux éléments */
+.cart-item,
+.checkout-item {
+  will-change: transform, opacity;
+}
+
+/* Optimisation des performances */
+.cart-item,
+.checkout-item,
+.cart-summary,
+.checkout-summary {
+  contain: layout style paint;
+}
+
+/* Effet de brillance premium sur les prix */
+.card__price {
+  position: relative;
+  display: inline-block;
+}
+
+.card__price::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.card:hover .card__price::after {
+  left: 100%;
+}
+
+/* Animation de rebond premium pour les totaux */
+@keyframes totalBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.cart-summary__row--total:hover span:last-child,
+.checkout-summary__row--total:hover span:last-child {
+  animation: totalBounce 0.6s ease;
+  display: inline-block;
+}
+
+/* Amélioration de la lisibilité avec ombres portées premium */
+.cart-item__title,
+.checkout-item__title {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Effet de gradient animé sur les boutons au hover */
+.btn:hover {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* Amélioration des transitions avec easing premium */
+.cart-item,
+.checkout-item,
+.cart-summary,
+.checkout-summary {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Effet de profondeur 3D premium */
+.cart-item,
+.checkout-item {
+  transform-style: preserve-3d;
+}
+
+.cart-item:hover,
+.checkout-item:hover {
+  transform: translateY(-2px) rotateX(1deg);
+}
+
+/* Animation de chargement élégante pour les formulaires */
+.form-group input:focus,
+.form-group select:focus {
+  animation: inputFocus 0.3s ease;
+}
+
+@keyframes inputFocus {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), 0 4px 12px rgba(212, 175, 55, 0.15);
+  }
+}
+
+/* Animation d'apparition pour les items du checkout */
+@keyframes checkoutItemSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Amélioration de l'animation de la page de confirmation */
+.order-confirmation-icon {
+  animation: confirmationIconAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Effet de glow premium sur les boutons au hover */
+.btn:hover,
+.quantity-btn:hover,
+.cart-item__remove:hover {
+  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.3));
+}
+
+/* Animation de transition premium entre les pages */
+@keyframes pageTransition {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+  }
+}
+
+/* Amélioration de l'animation des cartes au scroll */
+.cards .card {
+  animation: cardReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.cards .card:nth-child(1) { animation-delay: 0.1s; }
+.cards .card:nth-child(2) { animation-delay: 0.2s; }
+.cards .card:nth-child(3) { animation-delay: 0.3s; }
+.cards .card:nth-child(4) { animation-delay: 0.4s; }
+.cards .card:nth-child(5) { animation-delay: 0.5s; }
+.cards .card:nth-child(6) { animation-delay: 0.6s; }
+.cards .card:nth-child(n+7) { animation-delay: 0.7s; }
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Effet de profondeur premium avec ombres multiples */
+.cart-summary,
+.checkout-summary {
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 10px 30px rgba(212, 175, 55, 0.1);
+}
+
+.cart-summary:hover,
+.checkout-summary:hover {
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 15px 40px rgba(212, 175, 55, 0.15);
+}
+
+/* Animation de pulse subtile sur les éléments interactifs */
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.cart-link:hover,
+.quantity-btn:hover,
+.cart-item__remove:hover {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
+
+/* Amélioration de l'accessibilité avec indicateurs visuels premium */
+.cart-item:focus-within .cart-item__image,
+.checkout-item:focus-within .checkout-item__image {
+  outline: 3px solid var(--or-champagne);
+  outline-offset: 4px;
+}
+
+/* Effet de brillance premium sur les images au hover */
+.cart-item__image img,
+.checkout-item__image img {
+  position: relative;
+}
+
+.cart-item:hover .cart-item__image::after,
+.checkout-item:hover .checkout-item__image::after {
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+}
+
+/* Animation de chargement élégante pour les transitions */
+@keyframes loadingSpinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Amélioration de la lisibilité avec contraste premium */
+.cart-item__total-price,
+.checkout-item__price {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-feature-settings: "tnum" 1;
+}
+
+/* Effet de gradient animé sur les totaux */
+.cart-summary__row--total span:last-child,
+.checkout-summary__row--total span:last-child {
+  background: linear-gradient(135deg, var(--or-champagne) 0%, var(--or-doré) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientFlow 3s ease infinite;
+}
+
+/* Animation de rebond premium pour les interactions */
+@keyframes premiumBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.05);
+  }
+}
+
+.cart-item:hover,
+.checkout-item:hover {
+  animation: premiumBounce 0.6s ease;
+}
+
+/* Amélioration de la performance avec will-change */
+.cart-item,
+.checkout-item,
+.cart-summary,
+.checkout-summary,
+.btn,
+.quantity-btn {
+  will-change: transform;
+}
+
+/* Désactiver will-change après les animations */
+.cart-item.animated,
+.checkout-item.animated {
+  will-change: auto;
+}
+
+/* Animation de pulse pour les totaux */
+@keyframes totalPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Effet de brillance premium sur les boutons au clic */
+.btn:active,
+.quantity-btn:active,
+.cart-item__remove:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Amélioration de l'animation de confirmation avec particules */
+.confirmation-icon {
+  position: relative;
+  overflow: visible;
+}
+
+.confirmation-icon::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  animation: confirmationRipple 2s ease-in-out infinite;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+/* Animation de chargement premium pour les images */
+.cart-item__image,
+.checkout-item__image {
+  position: relative;
+  background: linear-gradient(135deg, var(--crème-poudré) 0%, var(--crème-ivoire) 100%);
+}
+
+.cart-item__image img,
+.checkout-item__image img {
+  transition: opacity 0.4s ease;
+}
+
+.cart-item__image img:not(.loaded),
+.checkout-item__image img:not(.loaded) {
+  opacity: 0;
+}
+
+.cart-item__image img.loaded,
+.checkout-item__image img.loaded {
+  opacity: 1;
+}
+
+/* Skeleton loader premium pour les images */
+.cart-item__image::after,
+.checkout-item__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cart-item__image::after,
+.checkout-item__image::after {
+  opacity: 1;
+}
+
+.cart-item__image img.loaded ~ *,
+.checkout-item__image img.loaded ~ * {
+  /* Image chargée */
+}
+
+/* Skeleton loader - sera géré par JavaScript */
+.cart-item__image.loading::after,
+.checkout-item__image.loading::after {
+  opacity: 1;
+  animation: skeletonShimmer 1.5s infinite;
+}
+
+.cart-item__image:not(.loading)::after,
+.checkout-item__image:not(.loading)::after {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Amélioration de l'animation de transition de page */
+body {
+  transition: opacity 0.3s ease;
+}
+
+/* Effet de profondeur premium avec perspective */
+.cart-content,
+.checkout__grid {
+  perspective: 1000px;
+}
+
+.cart-item,
+.checkout-item {
+  transform-style: preserve-3d;
+}
+
+/* Animation de hover premium avec rotation 3D subtile */
+.cart-item:hover {
+  transform: translateY(-2px) scale(1.01) rotateX(1deg) rotateY(0.5deg);
+}
+
+.checkout-item:hover {
+  transform: translateX(4px) scale(1.02);
+}
+
+/* Amélioration de l'accessibilité avec focus visible premium */
+.cart-link:focus-visible,
+.quantity-btn:focus-visible,
+.cart-item__remove:focus-visible {
+  outline: 3px solid var(--or-champagne);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.2);
+  z-index: 10;
+  position: relative;
+}
+
+/* Effet de glow premium sur les éléments au focus */
+.form-group input:focus,
+.form-group select:focus {
+  box-shadow: 
+    0 0 0 4px rgba(212, 175, 55, 0.1), 
+    0 4px 12px rgba(212, 175, 55, 0.15),
+    0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* Animation de chargement élégante pour les boutons */
+.btn.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--blanc-neige);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  animation: spin 0.8s linear infinite;
+}
+
+/* Amélioration de l'animation de la page de confirmation */
+.order-confirmation-icon {
+  animation: confirmationIconAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+}
+
+/* Effet de particules premium sur la confirmation */
+.confirmation-icon::after {
+  content: "";
+  position: absolute;
+  inset: -50px;
+  background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(233, 30, 99, 0.2) 0%, transparent 50%);
+  animation: confirmationParticles 3s ease-in-out infinite;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+@keyframes confirmationParticles {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* Amélioration de la performance avec contain */
+.cart-item,
+.checkout-item {
+  contain: layout style paint;
+}
+
+/* Animation de rebond premium pour les interactions */
+@keyframes premiumInteraction {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.quantity-btn:active,
+.cart-item__remove:active {
+  animation: premiumInteraction 0.3s ease;
+}
+
+/* Effet de profondeur premium avec ombres multiples */
+.cart-item,
+.checkout-item {
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cart-item:hover,
+.checkout-item:hover {
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 40px rgba(212, 175, 55, 0.1);
+}
+
+/* Animation de chargement premium pour les transitions */
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.site-main {
+  animation: pageLoad 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Amélioration de l'animation des cartes avec stagger */
+.cards .card {
+  animation: cardReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Effet de parallaxe premium sur les images */
+@media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
+  .cart-item__image,
+  .checkout-item__image {
+    transition: transform 0.1s ease-out;
+  }
+}
+
+/* Amélioration de l'animation de confirmation avec effets multiples */
+.confirmation-icon {
+  filter: drop-shadow(0 8px 16px rgba(212, 175, 55, 0.3));
+}
+
+.checkmark-svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Animation de pulse subtile pour attirer l'attention */
+@keyframes attentionPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+  }
+}
+
+.cart-summary__row--total:focus-within,
+.checkout-summary__row--total:focus-within {
+  animation: attentionPulse 2s ease-in-out infinite;
+}
+
+/* Amélioration de la lisibilité avec contraste premium */
+.cart-item__title,
+.checkout-item__title,
+.cart-summary__title,
+.checkout-summary__title {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.01em;
+}
+
+/* Effet de gradient animé premium sur les prix */
+.card__price {
+  background-size: 200% 200%;
+  animation: gradientFlow 4s ease infinite;
+}
+
+/* Animation de chargement élégante pour les formulaires */
+.form-group {
+  position: relative;
+}
+
+.form-group input:focus + label,
+.form-group select:focus + label {
+  color: var(--or-champagne);
+  transform: translateY(-2px);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Amélioration de l'animation de la page de confirmation */
+.order-confirmation-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.order-confirmation-icon::before {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+  animation: confirmationGlow 3s ease-in-out infinite;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+/* Effet de profondeur premium avec ombres portées */
+.cart-summary,
+.checkout-summary,
+.checkout-form {
+  position: relative;
+}
+
+.cart-summary::before,
+.checkout-summary::before,
+.checkout-form::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, var(--or-champagne), var(--pop-framboise));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(20px);
+  clip-path: inherit;
+}
+
+.cart-summary:hover::before,
+.checkout-summary:hover::before,
+.checkout-form:hover::before {
+  opacity: 0.15;
+}
+
+/* Effet de hover premium sur les boutons de quantité */
+.quantity-input {
+  transition: var(--transition-smooth);
+}
+
+.quantity-input:focus {
+  border-color: var(--or-champagne);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1), 0 4px 12px rgba(212, 175, 55, 0.15);
+  transform: scale(1.05);
+}
+
+/* Animation de chargement pour les images */
+.cart-item__image img,
+.checkout-item__image img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cart-item__image img.loaded,
+.checkout-item__image img.loaded {
+  opacity: 1;
+}
+
+/* Effet de glow sur les totaux */
+.cart-summary__row--total span:last-child,
+.checkout-summary__row--total span:last-child {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-summary__row--total span:last-child::after,
+.checkout-summary__row--total span:last-child::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.cart-summary:hover .cart-summary__row--total span:last-child::after,
+.checkout-summary:hover .checkout-summary__row--total span:last-child::after {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .cart-item {
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-sm);
+  }
+  
+  .cart-item__quantity,
+  .cart-item__total,
+  .cart-item__remove {
+    grid-column: 2;
+  }
+  
+  .cart-item__image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .form-group--inline {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Désactiver certaines animations sur mobile pour la performance */
+  .cart-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Réduire les animations sur mobile */
+  .confirmation-icon::before,
+  .confirmation-ripple {
+    animation: none;
+  }
+}
+
 /* Mode sombre automatique (si activé par le système) */
 @media (prefers-color-scheme: dark) {
   /* Le site utilise déjà un fond sombre, donc pas de changement majeur */
@@ -2191,7 +4701,9 @@ a {
   .site-header,
   .site-footer,
   .btn,
-  .nav__links {
+  .nav__links,
+  .bestsellers__controls,
+  .carousel__controls {
     display: none;
   }
   
@@ -2201,5 +4713,69 @@ a {
     border: 1px solid #ccc;
     page-break-inside: avoid;
   }
+  
+  .section {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================
+   AMÉLIORATION DES PERFORMANCES
+   ============================================ */
+/* Réduction des animations sur les appareils lents */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .section {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .collage__main,
+  .collage__tile {
+    animation: none;
+  }
+  
+  .parallax-slow {
+    transform: none !important;
+  }
+}
+
+/* Optimisation pour les écrans à faible puissance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimisation pour connexions lentes */
+body.slow-connection .collage__main,
+body.slow-connection .collage__tile {
+  animation: none;
+}
+
+body.slow-connection .parallax-slow {
+  transform: none !important;
+}
+
+/* Amélioration du chargement des images */
+img {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+img.image-loaded {
+  opacity: 1;
+}
+
+img.image-error {
+  opacity: 0.5;
+  filter: grayscale(100%);
 }
 

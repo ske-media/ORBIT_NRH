@@ -80,7 +80,10 @@ function initCarousel() {
   function render(nextIdx) {
     idx = (nextIdx + slides.length) % slides.length;
     slides.forEach((s, i) => s.classList.toggle("is-active", i === idx));
-    dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+    dots.forEach((d, i) => {
+      d.classList.toggle("is-active", i === idx);
+      d.setAttribute("aria-selected", i === idx ? "true" : "false");
+    });
   }
 
   function next() {
@@ -226,7 +229,10 @@ function initBestsellersCarousel() {
   function render(nextIdx) {
     idx = (nextIdx + slides.length) % slides.length;
     slides.forEach((s, i) => s.classList.toggle("is-active", i === idx));
-    dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+    dots.forEach((d, i) => {
+      d.classList.toggle("is-active", i === idx);
+      d.setAttribute("aria-selected", i === idx ? "true" : "false");
+    });
   }
 
   function next() {
@@ -255,6 +261,243 @@ function initBestsellersCarousel() {
   }
 }
 
+// Scroll reveal avec Intersection Observer pour de meilleures performances
+function initScrollReveal() {
+  const sections = document.querySelectorAll('.section, .hero');
+  if (!sections.length || !('IntersectionObserver' in window)) {
+    // Fallback : afficher tout si pas de support
+    sections.forEach(s => s.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optionnel : ne plus observer une fois visible pour la performance
+        // observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  sections.forEach(section => observer.observe(section));
+}
+
+// Amélioration : Parallaxe subtile pour les éléments du collage
+function initParallax() {
+  if (prefersReducedMotion()) return;
+
+  const parallaxElements = document.querySelectorAll('.collage__main, .collage__tile');
+  if (!parallaxElements.length) return;
+
+  let ticking = false;
+
+  function updateParallax() {
+    const scrollY = window.pageYOffset;
+    parallaxElements.forEach((el, index) => {
+      const rect = el.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isVisible) {
+        const speed = 0.1 + (index * 0.05); // Vitesse différente pour chaque élément
+        const yPos = -(scrollY * speed);
+        el.style.transform = `translateY(${yPos}px)`;
+      }
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  });
+}
+
+// Amélioration : Effet de souris sur les cartes (ombre dynamique)
+function initMouseShadow() {
+  const cards = document.querySelectorAll('.card, .media-card, .collage__main');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mouse-x', `${x}%`);
+      card.style.setProperty('--mouse-y', `${y}%`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--mouse-x', '50%');
+      card.style.setProperty('--mouse-y', '50%');
+    });
+  });
+}
+
+// Amélioration : Animation de chargement de page
+function initPageLoad() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+    });
+  } else {
+    document.body.classList.add('loaded');
+  }
+}
+
+// Amélioration : Smooth scroll amélioré avec easing
+function initEnhancedSmoothScroll() {
+  const links = document.querySelectorAll('a[href^="#"]');
+  const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+  const offset = headerHeight + 20;
+
+  links.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (href === "#" || !href) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+      // Utiliser smooth scroll avec easing personnalisé
+      smoothScrollTo(targetPosition, 800);
+    });
+  });
+}
+
+// Fonction de smooth scroll avec easing
+function smoothScrollTo(target, duration) {
+  const start = window.pageYOffset;
+  const distance = target - start;
+  let startTime = null;
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function animation(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+    const ease = easeInOutCubic(progress);
+
+    window.scrollTo(0, start + distance * ease);
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  requestAnimationFrame(animation);
+}
+
+// Amélioration : Préchargement intelligent des images critiques
+function initImagePreload() {
+  const criticalImages = [
+    'images/patisseries/opera.png',
+    'images/patisseries/macarons.png'
+  ];
+
+  criticalImages.forEach(src => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = src;
+    document.head.appendChild(link);
+  });
+}
+
+// Amélioration : Gestion des erreurs d'images
+function initImageErrorHandling() {
+  const images = document.querySelectorAll('img');
+  images.forEach(img => {
+    img.addEventListener('error', function() {
+      // Ajouter une classe pour un fallback visuel
+      this.classList.add('image-error');
+      this.alt = 'Image non disponible';
+      console.warn('Image failed to load:', this.src);
+    });
+    
+    // Ajouter une classe quand l'image est chargée
+    if (img.complete) {
+      img.classList.add('image-loaded');
+    } else {
+      img.addEventListener('load', function() {
+        this.classList.add('image-loaded');
+      });
+    }
+  });
+}
+
+// Amélioration : Détection de la connexion réseau
+function initNetworkStatus() {
+  if ('connection' in navigator) {
+    const updateConnectionStatus = () => {
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (connection) {
+        if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+          // Désactiver certaines animations sur connexion lente
+          document.body.classList.add('slow-connection');
+        }
+      }
+    };
+    
+    updateConnectionStatus();
+    window.addEventListener('online', updateConnectionStatus);
+    window.addEventListener('offline', () => {
+      showToast('Vous êtes hors ligne. Certaines fonctionnalités peuvent être limitées.');
+    });
+  }
+}
+
+// Amélioration : Performance monitoring (optionnel, pour le développement)
+function initPerformanceMonitoring() {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.addEventListener('load', () => {
+      if ('performance' in window) {
+        const perfData = window.performance.timing;
+        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log('Page load time:', pageLoadTime, 'ms');
+      }
+    });
+  }
+}
+
+// Enregistrement du Service Worker pour PWA
+function initServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker enregistré avec succès:', registration.scope);
+          
+          // Vérifier les mises à jour
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // Nouveau service worker disponible
+                showToast('Nouvelle version disponible ! Rechargez la page.');
+              }
+            });
+          });
+        })
+        .catch((error) => {
+          console.log('Échec de l\'enregistrement du Service Worker:', error);
+        });
+    });
+  }
+}
+
+// Initialisation de toutes les fonctionnalités
 initYear();
 initMobileMenu();
 initCarousel();
@@ -263,4 +506,14 @@ initScrollHeader();
 initLazyLoading();
 initSmoothScroll();
 initBestsellersCarousel();
+initScrollReveal();
+initParallax();
+initMouseShadow();
+initPageLoad();
+initEnhancedSmoothScroll();
+initImagePreload();
+initImageErrorHandling();
+initPerformanceMonitoring();
+initServiceWorker();
+initNetworkStatus();
 

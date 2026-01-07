@@ -50,3 +50,4 @@ Ce document liste tous les noms de fichiers d'images attendus pour chaque recett
 3. Format recommandé : JPG ou PNG, 1200x800px minimum, optimisé pour le web (< 500KB)
 4. Si une image spécifique n'est pas trouvée, le site utilisera automatiquement `patisserie-defaut.jpg`
 
+
