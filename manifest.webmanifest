@@ -1,0 +1,19 @@
+{
+  "name": "Golden Sweet Creations",
+  "short_name": "Golden Sweet",
+  "description": "Pâtisserie artisanale inclusive : sans gluten, IG bas, sans lactose et vegan.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3a0716",
+  "theme_color": "#3a0716",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
