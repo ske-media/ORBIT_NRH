@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Golden Sweet Creations — pâtisseries sans gluten, IG bas, sans lactose et vegan. Une histoire de résilience, de goût et d’excellence."
+      content="Chef Bulier — pâtisseries sans gluten, IG bas, sans lactose et vegan. Une histoire de résilience, de goût et d'excellence."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="theme-color" content="#3a0716" />
     <meta name="color-scheme" content="dark light" />
-    <title>Golden Sweet Creations — Pâtisserie saine, sans compromis</title>
+    <title>Chef Bulier — Pâtisserie saine, sans compromis</title>
 
     <link rel="canonical" href="https://goldensweetcreations.fr/" />
     <link rel="manifest" href="manifest.webmanifest" />
@@ -18,7 +18,7 @@
 
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Golden Sweet Creations — Pâtisserie saine, sans compromis" />
+    <meta property="og:title" content="Chef Bulier — Pâtisserie saine, sans compromis" />
     <meta
       property="og:description"
       content="Pâtisseries sans gluten, IG bas, sans lactose et vegan. Une histoire de résilience, de goût et d’excellence."
@@ -26,19 +26,19 @@
     <meta property="og:url" content="https://goldensweetcreations.fr/" />
     <meta
       property="og:image"
-      content="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=1600&q=80"
+      content="images/patisseries/macarons.png"
     />
     <meta property="og:image:alt" content="Chef pâtissier en action dans une cuisine lumineuse" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Golden Sweet Creations — Pâtisserie saine, sans compromis" />
+    <meta name="twitter:title" content="Chef Bulier — Pâtisserie saine, sans compromis" />
     <meta
       name="twitter:description"
       content="Sans gluten • IG bas • Sans lactose • Vegan. Le plaisir, pour tous, sans restriction."
     />
     <meta
       name="twitter:image"
-      content="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=1600&q=80"
+      content="images/patisseries/macarons.png"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,19 +57,19 @@
             "@type": "WebSite",
             "@id": "https://goldensweetcreations.fr/#website",
             "url": "https://goldensweetcreations.fr/",
-            "name": "Golden Sweet Creations",
+            "name": "Chef Bulier",
             "inLanguage": "fr-FR",
             "description": "Pâtisseries sans gluten, IG bas, sans lactose et vegan."
           },
           {
             "@type": ["LocalBusiness", "Bakery"],
             "@id": "https://goldensweetcreations.fr/#bakery",
-            "name": "Golden Sweet Creations",
+            "name": "Chef Bulier",
             "url": "https://goldensweetcreations.fr/",
-            "email": "bonjour@goldensweetcreations.fr",
+            "email": "bonjour@chefbulier.fr",
             "telephone": "+33 6 00 00 00 00",
             "description": "Pâtisserie artisanale inclusive : sans gluten, IG bas, sans lactose et vegan. Le plaisir, pour tous, sans restriction.",
-            "image": "https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=1600&q=80",
+            "image": "images/patisseries/macarons.png",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "12 rue des Saveurs",
@@ -78,9 +78,7 @@
               "addressCountry": "FR"
             },
             "sameAs": [
-              "https://www.instagram.com/",
-              "https://www.facebook.com/",
-              "https://www.pinterest.com/"
+              "https://www.instagram.com/nicolasbulier/"
             ]
           }
         ]
@@ -94,17 +92,24 @@
     <header class="site-header" role="banner">
       <div class="frame">
         <div class="topbar">
-          <p class="topbar__note">
+          <div class="topbar__content">
             <span class="pill">Nouveauté</span>
+            <p class="topbar__note">
             Boîtes dégustation • Sans gluten • IG bas • Sans lactose • Vegan
           </p>
-          <a class="topbar__cta" href="#newsletter">Recevoir les nouveautés</a>
+          </div>
+          <a class="topbar__cta" href="#newsletter">
+            <span>Recevoir les nouveautés</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
 
         <div class="nav">
-          <a class="brand" href="#accueil" aria-label="Retour à l’accueil">
-            <span class="brand__small">Golden Sweet</span>
-            <span class="brand__big">Creations</span>
+          <a class="brand" href="index.html" aria-label="Retour à l'accueil">
+            <span class="brand__small">Chef</span>
+            <span class="brand__big">Bulier</span>
           </a>
 
           <button
@@ -117,11 +122,12 @@
           </button>
 
           <nav class="nav__links" id="menu" aria-label="Navigation principale">
-            <a href="#histoire">Notre histoire</a>
-            <a href="#patisseries">Nos pâtisseries</a>
-            <a href="#engagement">Engagement</a>
-            <a href="#temoignages">Témoignages</a>
-            <a class="btn btn--small" href="#commande">Commander</a>
+            <a href="histoire.html">Notre histoire</a>
+            <a href="recettes.html">Recettes</a>
+            <a href="b2b.html">B2B</a>
+            <a href="engagement.html">Engagement</a>
+            <a href="faq.html">FAQ</a>
+            <a class="btn btn--small" href="index.html#commande">Commander</a>
           </nav>
         </div>
       </div>
@@ -139,10 +145,10 @@
             </h1>
             <p class="hero__subtitle">
               Le plaisir, pour tous, sans restriction.
-              <span class="muted"
-                >Offrez à vos papilles ce qu’il y a de meilleur, adapté à tous les
-                régimes alimentaires.</span
-              >
+            </p>
+            <p class="muted">
+              Offrez à vos papilles ce qu'il y a de meilleur, adapté à tous les
+              régimes alimentaires.
             </p>
 
             <div class="hero__actions">
@@ -173,7 +179,7 @@
             <div class="collage">
               <figure class="collage__main">
                 <img
-                  src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=1400&q=80"
+                  src="images/patisseries/macarons.png"
                   alt="Chef pâtissier en action dans une cuisine lumineuse"
                   loading="eager"
                 />
@@ -184,7 +190,7 @@
 
               <figure class="collage__tile collage__tile--1">
                 <img
-                  src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=80"
+                  src="images/patisseries/macarons.png"
                   alt="Viennoiseries artisanales dorées"
                   loading="lazy"
                 />
@@ -196,7 +202,7 @@
 
               <figure class="collage__tile collage__tile--2">
                 <img
-                  src="https://images.unsplash.com/photo-1514511547114-0159909348ff?auto=format&fit=crop&w=900&q=80"
+                  src="images/patisseries/macarons.png"
                   alt="Ingrédients naturels : fruits, céréales et graines"
                   loading="lazy"
                 />
@@ -207,175 +213,175 @@
         </div>
       </section>
 
-      <!-- HISTOIRE -->
-      <section id="histoire" class="section story">
-        <div class="frame section__grid">
-          <div class="section__copy">
-            <h2 class="section__title">
-              D’un chef pâtissier de renommée mondiale à une nouvelle vision de la pâtisserie
-            </h2>
-            <div class="prose">
-              <p>
-                “Dans les cuisines des plus grands hôtels et restaurants du monde, un chef
-                pâtissier émérite, reconnu pour son savoir-faire et sa créativité, voyait chaque
-                jour des milliers de sourires en offrant des délices sucrées. Mais un jour, tout a
-                changé. Un diagnostic de diabète a bouleversé sa vie. Plutôt que de se laisser
-                abattre, ce chef a vu cette épreuve comme une chance de réinventer son art.
-              </p>
-              <p>
-                Il a plongé dans un nouvel univers : celui des pâtisseries saines, sans gluten, à
-                faible indice glycémique, sans lactose et adaptées aux besoins de tous, sans exclure
-                personne. Son rêve : offrir à chacun la possibilité de savourer des douceurs sans
-                mettre en danger leur santé. C’est ainsi qu’est née
-                <strong>Golden Sweet Creations</strong>, un espace où la passion de la pâtisserie rencontre
-                l’excellence de la nutrition, sans compromis sur le goût.”
-              </p>
-            </div>
+      <!-- HISTOIRE (VERSION LIGHT) -->
+      <section id="histoire" class="section story story--light">
+        <div class="frame">
+          <div class="section__header">
+            <h2 class="section__title">Notre histoire</h2>
+            <p class="section__lede">
+              D'un chef pâtissier de renommée mondiale à une nouvelle vision de la pâtisserie inclusive.
+              Un diagnostic de diabète a bouleversé sa vie et l'a poussé à réinventer son art pour
+              offrir à chacun la possibilité de savourer des douceurs sans mettre en danger leur santé.
+            </p>
             <div class="section__actions">
-              <a class="btn" href="#patisseries">Explorez nos créations</a>
-            </div>
-          </div>
-
-          <div class="section__media">
-            <div class="media-card">
-              <img
-                src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=1400&q=80"
-                alt="Dressage délicat d’une pâtisserie en cuisine"
-                loading="lazy"
-              />
-              <div class="media-card__meta">
-                <p class="media-card__title">Une nouvelle mission</p>
-                <p class="media-card__subtitle">Rendre la pâtisserie accessible à tous.</p>
-              </div>
+              <a class="btn" href="histoire.html">Lire notre histoire complète</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PRODUITS -->
-      <section id="patisseries" class="section products" aria-label="Nos pâtisseries">
+      <!-- BEST SELLERS CAROUSEL -->
+      <section id="patisseries" class="section bestsellers" aria-label="Best-sellers">
         <div class="frame">
           <header class="section__header">
-            <h2 class="section__title">Des créations gourmandes pour tous les goûts</h2>
+            <h2 class="section__title">Nos best-sellers</h2>
             <p class="section__lede">
-              Chez <strong>Golden Sweet Creations</strong>, chaque bouchée réconcilie plaisir et santé.
-              Nos recettes sont pensées pour être partagées par tous, sans renoncer à la texture,
-              aux arômes ni à l’élégance.
+              Découvrez les pâtisseries les plus appréciées de nos clients, créées avec passion et savoir-faire.
             </p>
           </header>
 
-          <div class="cards" role="list">
-            <article class="card" role="listitem">
-              <img
-                src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1200&q=80"
-                alt="Pain sans gluten à croûte dorée"
-                loading="lazy"
-              />
-              <div class="card__body">
-                <h3 class="card__title">Pain sans gluten</h3>
-                <p class="card__text">Croûte dorée, mie légère. Parfait au quotidien.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Sans gluten</li>
-                  <li>Artisanal</li>
-                </ul>
-              </div>
-            </article>
+          <div class="bestsellers__carousel" data-bestsellers-carousel>
+            <div class="bestsellers__viewport" aria-live="polite">
+              <article class="bestseller-card is-active" data-bestseller-slide>
+                <img
+                  src="images/patisseries/macarons.png"
+                  alt="Macarons assortis"
+                  loading="lazy"
+                />
+                <div class="bestseller-card__body">
+                  <h3 class="bestseller-card__title">Macarons assortis</h3>
+                  <p class="bestseller-card__text">Coques légères, ganaches parfumées : framboise, pistache, chocolat, vanille.</p>
+                  <ul class="chips" aria-label="Caractéristiques">
+                    <li>Sans gluten</li>
+                    <li>Vegan</li>
+                    <li>IG bas</li>
+                  </ul>
+                </div>
+              </article>
 
-            <article class="card" role="listitem">
-              <img
-                src="https://images.unsplash.com/photo-1555507036-3639f4947f0b?auto=format&fit=crop&w=1200&q=80"
-                alt="Brioche moelleuse"
-                loading="lazy"
-              />
-              <div class="card__body">
-                <h3 class="card__title">Brioche IG bas</h3>
-                <p class="card__text">Moelleuse, douceur naturellement équilibrée.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>IG bas</li>
-                  <li>Sans lactose</li>
-                </ul>
-              </div>
-            </article>
+              <article class="bestseller-card" data-bestseller-slide>
+                <img
+                  src="images/patisseries/eclair_chocolat.png"
+                  alt="Éclair au chocolat"
+                  loading="lazy"
+                />
+                <div class="bestseller-card__body">
+                  <h3 class="bestseller-card__title">Éclair au chocolat</h3>
+                  <p class="bestseller-card__text">Pâte à choux croustillante, crème pâtissière onctueuse au chocolat noir.</p>
+                  <ul class="chips" aria-label="Caractéristiques">
+                    <li>Sans gluten</li>
+                    <li>Sans lactose</li>
+                  </ul>
+                </div>
+              </article>
 
-            <article class="card" role="listitem">
-              <img
-                src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=1200&q=80"
-                alt="Tartelette aux fruits frais"
-                loading="lazy"
-              />
-              <div class="card__body">
-                <h3 class="card__title">Tartelette aux fruits frais</h3>
-                <p class="card__text">Sans sucre raffiné, fraîche et lumineuse.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Sans sucre raffiné</li>
-                  <li>Fruits frais</li>
-                </ul>
-              </div>
-            </article>
+              <article class="bestseller-card" data-bestseller-slide>
+                <img
+                  src="images/patisseries/opera.png"
+                  alt="Opéra"
+                  loading="lazy"
+                />
+                <div class="bestseller-card__body">
+                  <h3 class="bestseller-card__title">Opéra</h3>
+                  <p class="bestseller-card__text">Biscuit Joconde, sirop café, ganache chocolat, glaçage miroir élégant.</p>
+                  <ul class="chips" aria-label="Caractéristiques">
+                    <li>Sans gluten</li>
+                    <li>Sans lactose</li>
+                    <li>IG bas</li>
+                  </ul>
+                </div>
+              </article>
 
-            <article class="card" role="listitem">
-              <img
-                src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1200&q=80"
-                alt="Cookies vegan et sans gluten"
-                loading="lazy"
-              />
-              <div class="card__body">
-                <h3 class="card__title">Cookies vegan sans gluten</h3>
-                <p class="card__text">Croquants dehors, fondants dedans. Pur plaisir.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Vegan</li>
-                  <li>Sans gluten</li>
-                </ul>
-              </div>
-            </article>
+              <article class="bestseller-card" data-bestseller-slide>
+                <img
+                  src="images/patisseries/millefeuille.png"
+                  alt="Millefeuille vanille"
+                  loading="lazy"
+                />
+                <div class="bestseller-card__body">
+                  <h3 class="bestseller-card__title">Millefeuille vanille</h3>
+                  <p class="bestseller-card__text">Pâte feuilletée croustillante, crème pâtissière à la vanille de Madagascar.</p>
+                  <ul class="chips" aria-label="Caractéristiques">
+                    <li>Sans gluten</li>
+                    <li>Sans lactose</li>
+                  </ul>
+                </div>
+              </article>
 
-            <article class="card" role="listitem">
-              <img
-                src="https://images.unsplash.com/photo-1587248720327-8eb72564be1e?auto=format&fit=crop&w=1200&q=80"
-                alt="Cupcakes crémeux"
-                loading="lazy"
-              />
-              <div class="card__body">
-                <h3 class="card__title">Cupcakes sans lactose</h3>
-                <p class="card__text">Légers, crémeux, parfaits pour les instants sucrés.</p>
-                <ul class="chips" aria-label="Caractéristiques">
-                  <li>Sans lactose</li>
-                  <li>Gourmand</li>
-                </ul>
-              </div>
-            </article>
+              <article class="bestseller-card" data-bestseller-slide>
+                <img
+                  src="images/patisseries/tarte_tatin.png"
+                  alt="Tarte Tatin aux pommes"
+                  loading="lazy"
+                />
+                <div class="bestseller-card__body">
+                  <h3 class="bestseller-card__title">Tarte Tatin aux pommes</h3>
+                  <p class="bestseller-card__text">Pommes caramélisées, pâte brisée croustillante, sucre de coco.</p>
+                  <ul class="chips" aria-label="Caractéristiques">
+                    <li>Sans gluten</li>
+                    <li>IG bas</li>
+                    <li>Vegan</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
 
-            <article class="card card--cta" role="listitem" id="commande">
-              <div class="card__body">
-                <p class="eyebrow">Boîte découverte</p>
-                <h3 class="card__title">Commandez votre boîte aujourd’hui</h3>
-                <p class="card__text">
-                  Une sélection de nos best-sellers, adaptée à vos préférences (sans gluten, IG bas,
-                  sans lactose, vegan).
-                </p>
-                <a class="btn" href="#newsletter" aria-label="Commencer une commande">
-                  Commencer l’achat
-                </a>
-                <p class="fineprint">
-                  * Démo : ce site ne traite pas les paiements.
-                </p>
+            <div class="bestsellers__controls">
+              <button class="icon-btn" type="button" data-bestseller-prev aria-label="Best-seller précédent">
+                ←
+              </button>
+              <div class="dots" role="tablist" aria-label="Sélecteur de best-sellers">
+                <button class="dot is-active" type="button" data-bestseller-dot aria-label="Aller au best-seller 1"></button>
+                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 2"></button>
+                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 3"></button>
+                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 4"></button>
+                <button class="dot" type="button" data-bestseller-dot aria-label="Aller au best-seller 5"></button>
               </div>
-            </article>
+              <button class="icon-btn" type="button" data-bestseller-next aria-label="Best-seller suivant">
+                →
+              </button>
+            </div>
+
+            <div class="bestsellers__cta">
+              <a class="btn" href="recettes.html">Voir toutes les recettes</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ENGAGEMENT -->
-      <section id="engagement" class="section quality" aria-label="Engagement qualité et santé">
-        <div class="frame section__grid section__grid--reverse">
-          <div class="section__copy">
-            <h2 class="section__title">Une pâtisserie qui respecte votre bien-être</h2>
+      <!-- COMMANDE -->
+      <section id="commande" class="section commande" aria-label="Commander">
+        <div class="frame">
+          <article class="card card--cta" role="article">
+            <div class="card__body">
+              <p class="eyebrow">Boîte découverte</p>
+              <h3 class="card__title">Commandez votre boîte aujourd'hui</h3>
+              <p class="card__text">
+                Une sélection de nos best-sellers, adaptée à vos préférences (sans gluten, IG bas,
+                sans lactose, vegan).
+              </p>
+              <a class="btn" href="#newsletter" aria-label="Commencer une commande">
+                Commencer l'achat
+              </a>
+              <p class="fineprint">
+                * Démo : ce site ne traite pas les paiements.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ENGAGEMENT (VERSION LIGHT) -->
+      <section id="engagement" class="section quality quality--light" aria-label="Engagement qualité et santé">
+        <div class="frame">
+          <div class="section__header">
+            <h2 class="section__title">Notre engagement</h2>
             <p class="section__lede">
-              Nous utilisons uniquement des ingrédients 100% naturels, sans conservateurs ni
-              additifs. Chaque recette est pensée pour respecter les régimes les plus stricts tout
-              en restant un pur plaisir pour les papilles.
+              Une pâtisserie qui respecte votre bien-être. Nous utilisons uniquement des ingrédients
+              100% naturels, sans conservateurs ni additifs. Chaque recette est pensée pour respecter
+              les régimes les plus stricts tout en restant un pur plaisir pour les papilles.
             </p>
-            <ul class="checklist" aria-label="Points clés">
+            <ul class="checklist" aria-label="Points clés" style="max-width: 600px; margin: var(--space-md) auto;">
               <li><span aria-hidden="true">✓</span> 100% naturel</li>
               <li><span aria-hidden="true">✓</span> Sans gluten et sans lactose</li>
               <li><span aria-hidden="true">✓</span> IG bas</li>
@@ -383,21 +389,7 @@
               <li><span aria-hidden="true">✓</span> Vegan et végétarien</li>
             </ul>
             <div class="section__actions">
-              <a class="btn btn--ghost" href="#histoire">Découvrez nos valeurs</a>
-            </div>
-          </div>
-
-          <div class="section__media">
-            <div class="media-card media-card--tall">
-              <img
-                src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=1400&q=80"
-                alt="Pâtisseries sur une table, lumière naturelle"
-                loading="lazy"
-              />
-              <div class="media-card__meta">
-                <p class="media-card__title">Textures & arômes</p>
-                <p class="media-card__subtitle">Sans excès, sans artifices.</p>
-              </div>
+              <a class="btn" href="engagement.html">Découvrir notre engagement complet</a>
             </div>
           </div>
         </div>
@@ -458,6 +450,149 @@
         </div>
       </section>
 
+      <!-- B2B (VERSION LIGHT) -->
+      <section id="b2b" class="section b2b b2b--light" aria-label="Solutions B2B pour restaurants">
+        <div class="frame">
+          <div class="section__header">
+            <h2 class="section__title">Solutions B2B pour restaurants</h2>
+            <p class="section__lede">
+              Pensez à tous vos clients. Proposez des pâtisseries inclusives qui raviront les personnes
+              intolérantes au gluten, diabétiques, véganes ou simplement soucieuses de leur bien-être.
+              Nous proposons des solutions sur mesure : formation de votre équipe, recettes adaptées
+              à vos volumes, accompagnement personnalisé.
+            </p>
+            <div class="section__actions">
+              <a class="btn" href="b2b.html">Découvrir nos solutions B2B</a>
+              <a class="btn btn--ghost" href="mailto:bonjour@chefbulier.fr?subject=Demande B2B">Demander un devis</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMANDES SPÉCIALES -->
+      <section id="commandes-speciales" class="section special-orders" aria-label="Commandes spéciales">
+        <div class="frame section__grid section__grid--reverse">
+          <div class="section__copy">
+            <h2 class="section__title">Commandes spéciales sur mesure</h2>
+            <p class="section__lede">
+              Un événement à célébrer ? Un goût particulier ? Nous créons des pâtisseries uniques
+              adaptées à vos besoins et à vos contraintes alimentaires.
+            </p>
+            <div class="prose">
+              <p>
+                Que ce soit pour un mariage, un anniversaire, un événement d'entreprise ou simplement
+                pour satisfaire une envie particulière, nos pâtissiers créent des desserts sur mesure.
+                Chaque création est pensée pour respecter vos régimes alimentaires tout en conservant
+                l'excellence et le raffinement.
+              </p>
+              <p>
+                Nous travaillons avec vous pour comprendre vos besoins, vos préférences et créer
+                l'expérience gourmande parfaite. Minimum 48h de préavis pour les commandes spéciales.
+              </p>
+            </div>
+            <ul class="checklist" aria-label="Types de commandes">
+              <li><span aria-hidden="true">✓</span> Gâteaux d'anniversaire personnalisés</li>
+              <li><span aria-hidden="true">✓</span> Desserts de mariage et événements</li>
+              <li><span aria-hidden="true">✓</span> Buffets pâtissiers sur mesure</li>
+              <li><span aria-hidden="true">✓</span> Créations originales selon vos goûts</li>
+            </ul>
+            <div class="section__actions">
+              <a class="btn" href="mailto:bonjour@chefbulier.fr?subject=Commande spéciale">Demander un devis</a>
+            </div>
+          </div>
+
+          <div class="section__media">
+            <div class="media-card">
+              <img
+                src="images/patisseries/macarons.png"
+                alt="Gâteau personnalisé sur mesure"
+                loading="lazy"
+              />
+              <div class="media-card__meta">
+                <p class="media-card__title">Créations uniques</p>
+                <p class="media-card__subtitle">Vos idées, notre savoir-faire.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ZONE DE LIVRAISON -->
+      <section id="livraison" class="section delivery" aria-label="Zone de livraison">
+        <div class="frame">
+          <header class="section__header">
+            <h2 class="section__title">Livraison dans le Grand Genève</h2>
+            <p class="section__lede">
+              Nous livrons nos pâtisseries fraîches dans toute la région du Grand Genève, pour votre
+              plus grand plaisir.
+            </p>
+          </header>
+
+          <div class="section__grid">
+            <div class="section__copy">
+              <h3 class="section__title" style="font-size: 28px; margin-bottom: var(--space-md);">Zones de livraison</h3>
+              <div class="prose">
+                <p>
+                  Nous couvrons l'ensemble du <strong>Grand Genève</strong>, incluant :
+                </p>
+                <ul style="margin: var(--space-md) 0; padding-left: var(--space-lg); line-height: 2;">
+                  <li>Genève (Suisse) et ses environs</li>
+                  <li>Annemasse et la Vallée de l'Arve</li>
+                  <li>Saint-Julien-en-Genevois</li>
+                  <li>Thonon-les-Bains</li>
+                  <li>Évian-les-Bains</li>
+                  <li>Gex et le Pays de Gex</li>
+                  <li>Ferney-Voltaire</li>
+                  <li>Et toute la région frontalière</li>
+                </ul>
+                <p>
+                  <strong>Frais de livraison :</strong> 5€ pour les commandes de moins de 50€.
+                  Livraison gratuite à partir de 50€ d'achat.
+                </p>
+                <p>
+                  <strong>Délais :</strong> Livraison le jour même pour les commandes passées avant
+                  14h. Commandes spéciales : 48h minimum.
+                </p>
+              </div>
+              <div class="section__actions">
+                <a class="btn" href="#commande">Vérifier ma zone de livraison</a>
+              </div>
+            </div>
+
+            <div class="section__media">
+              <div class="media-card">
+                <img
+                  src="images/patisseries/macarons.png"
+                  alt="Carte du Grand Genève"
+                  loading="lazy"
+                />
+                <div class="media-card__meta">
+                  <p class="media-card__title">Grand Genève</p>
+                  <p class="media-card__subtitle">Livraison rapide et soignée.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ (VERSION LIGHT) -->
+      <section id="faq" class="section faq faq--light" aria-label="Questions fréquentes">
+        <div class="frame">
+          <header class="section__header">
+            <h2 class="section__title">Questions fréquentes</h2>
+            <p class="section__lede">
+              Trouvez les réponses aux questions les plus courantes sur nos pâtisseries, nos recettes
+              et nos services. Vos pâtisseries sont-elles vraiment sans gluten ? Qu'est-ce que l'IG bas ?
+              Comment passer une commande ? Découvrez toutes les réponses.
+            </p>
+            <div class="section__actions">
+              <a class="btn" href="faq.html">Voir toutes les questions</a>
+            </div>
+          </header>
+        </div>
+      </section>
+
       <!-- NEWSLETTER -->
       <section id="newsletter" class="section newsletter" aria-label="Abonnez-vous à la newsletter">
         <div class="frame newsletter__box">
@@ -491,7 +626,7 @@
     <footer class="site-footer" role="contentinfo">
       <div class="frame footer__grid">
         <div>
-          <p class="footer__brand">Golden Sweet Creations</p>
+          <p class="footer__brand">Chef Bulier</p>
           <p class="footer__text">
             Pâtisserie artisanale inclusive : sans gluten, IG bas, sans lactose et vegan.
           </p>
@@ -500,30 +635,31 @@
         <div>
           <p class="footer__title">Contact</p>
           <ul class="footer__list">
-            <li>Adresse : 12 rue des Saveurs, 75000 Paris</li>
+            <li>Email : bonjour@chefbulier.fr</li>
             <li>Téléphone : +33 6 00 00 00 00</li>
-            <li>Email : bonjour@goldensweetcreations.fr</li>
+            <li>Zone de livraison : Grand Genève</li>
           </ul>
         </div>
 
         <div>
           <p class="footer__title">Réseaux sociaux</p>
           <ul class="footer__list">
-            <li><a href="#" aria-label="Instagram (démo)">Instagram</a></li>
-            <li><a href="#" aria-label="Facebook (démo)">Facebook</a></li>
-            <li><a href="#" aria-label="Pinterest (démo)">Pinterest</a></li>
+            <li><a href="https://www.instagram.com/nicolasbulier/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Chef Bulier">Instagram</a></li>
           </ul>
         </div>
 
-        <div class="footer__cta">
-          <p class="footer__title">Envie de goûter ?</p>
-          <a class="btn" href="#commande">Commandez vos pâtisseries en ligne</a>
-          <p class="fineprint">Livraison & click & collect (démo).</p>
+        <div>
+          <p class="footer__title">Informations légales</p>
+          <ul class="footer__list">
+            <li><a href="mentions-legales.html">Mentions légales</a></li>
+            <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
+            <li><a href="cgv.html">CGV</a></li>
+          </ul>
         </div>
       </div>
 
       <div class="frame footer__bottom">
-        <p>© <span data-year></span> Golden Sweet Creations. Tous droits réservés.</p>
+        <p>© <span data-year></span> Chef Bulier. Tous droits réservés.</p>
         <a href="#accueil">Retour en haut</a>
       </div>
     </footer>
@@ -532,3 +668,4 @@
     <script src="script.js"></script>
   </body>
 </html>
+
